@@ -41,6 +41,7 @@ class DetailsProfileViewController: UIViewController {
 
     // MARK: - Setup UI
     func setupNavBar() {
+        self.navigationController?.navigationBar.isTranslucent = false
         let saveButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(saveProfileInfo))
         self.navigationItem.rightBarButtonItem = saveButton
     }
@@ -64,6 +65,7 @@ class DetailsProfileViewController: UIViewController {
     
     func saveProfileInfo() {
         let data: [String: Any] = [
+            "id": "",   //TODO: get UUID
             "name": "Idelfonso",
             "age": 22,
             "sex": "M",

@@ -31,11 +31,11 @@ class IntroViewController: UIViewController {
         let indicator = startActivityIndicatorAnimation()
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) {
             let controller = self.storyboard?.instantiateViewController(withIdentifier: "UserListTableViewController") as! UserListTableViewController
+            let navigationController = UINavigationController(rootViewController: controller)
             self.stopActivityIndicatorAnimation(indicator: indicator)
-            self.present(controller, animated: true, completion: nil)
+            self.present(navigationController, animated: true, completion: nil)
         }
     }
-    
 
     func registerFirebaseObservers() {
         app.refHandle = app.ref.child(Path.Profiles).observe(.childAdded, with: { (snapshot) in

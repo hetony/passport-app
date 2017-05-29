@@ -35,7 +35,6 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        app.ref.removeObserver(withHandle: app.refHandle)
     }
 
     // MARK: - View Controller Functions
@@ -82,7 +81,11 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (self.profiles?.count)!
+        if let count = self.profiles?.count {
+            return count
+        } else {
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -100,6 +103,6 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
         let detailsController = storyboard?.instantiateViewController(withIdentifier: "DetailsProfileViewController") as! DetailsProfileViewController
         detailsController.profile = self.profiles?[indexPath.row]
         detailsController.newUser = false
-        self.present(detailsController, animated: true, completion: nil)
+        self.navigationController?.pushViewController(detailsController, animated: true)
     }
 }
