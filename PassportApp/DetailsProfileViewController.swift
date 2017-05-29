@@ -10,13 +10,14 @@ import UIKit
 
 class DetailsProfileViewController: UIViewController {
 
+    // MARK: - Singleton property
+    
     // MARK: - Properties
     var profile: Profile?
     var newUser: Bool?
     var arrayOfHobbies: [String]?
     
     // MARK: - IBOutlets
-
     @IBOutlet weak var ageTextField: UITextField!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var sexSwitch: UISegmentedControl!
@@ -39,7 +40,7 @@ class DetailsProfileViewController: UIViewController {
 
     // MARK: - Setup UI
     func setupNavBar() {
-        let saveButton = UIBarButtonItem(title: "save", style: .done, target: self, action: #selector(saveProfileInfo))
+        let saveButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(saveProfileInfo))
         self.navigationItem.rightBarButtonItem = saveButton
     }
     
@@ -61,11 +62,14 @@ class DetailsProfileViewController: UIViewController {
     }
     
     func saveProfileInfo() {
-        let information: [String: Any] = [
-            "name": self.nameTextField.text,
-            "age": self.ageTextField.text,
-            "sex" : self.sexSwitch.selectedSegmentIndex
+        let data: [String: Any] = [
+            "name": "Idelfonso",
+            "age": 22,
+            "sex": "M",
+            "imageUrl": "g://asdsad"
         ]
+        
+        ref.child("profiles").childByAutoId().setValue(data)
     }
     
     func showUserProfile() {

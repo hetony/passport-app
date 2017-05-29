@@ -36,7 +36,7 @@ class UserListTableViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        registerObservers()
+        registerFirebaseObservers()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -55,15 +55,15 @@ class UserListTableViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = addProfile
     }
     
-    func registerObservers() {
-        app.refHandle = app.ref.child("profile").observe(.childAdded, with: { (snapshot) in
+    func registerFirebaseObservers() {
+        app.refHandle = app.ref.child("profiles").observe(.childAdded, with: { (snapshot) in
             print(snapshot.value)
             self.profilesSnapshortArray.append(snapshot)
             let student = Profile.loadStudentFromDictionary(snapshot.value as! [String: Any])
             self.profileArray?.append(student)
         })
         
-        app.refHandle = app.ref.child("profile").observe(.childChanged, with: { (updateSnapshot) in
+        app.refHandle = app.ref.child("profiles").observe(.childChanged, with: { (updateSnapshot) in
             //TODO: look for key matching IDs
             var updatedUser = updateSnapshot.value as! [String: Any]
             print(updatedUser)
@@ -73,19 +73,9 @@ class UserListTableViewController: UIViewController {
     }
     
     func addNewProfile() {
-        //TODO: erase this
-        let data: [String: Any] = [
-            "name": "Idelfonso",
-            "age": 22,
-            "sex": "M"
-        ]
-        
-        ref.child("profiles").childByAutoId().setValue(data)
-        
-        //TODO: Dont erase this
-//        let newProfileController = storyboard?.instantiateViewController(withIdentifier: "DetailsProfileViewController") as! DetailsProfileViewController
-//        newProfileController.newUser = true
-//        self.navigationController?.pushViewController(newProfileController, animated: true)
+        let newProfileController = storyboard?.instantiateViewController(withIdentifier: "DetailsProfileViewController") as! DetailsProfileViewController
+        newProfileController.newUser = true
+        self.navigationController?.pushViewController(newProfileController, animated: true)
     }
     
     func showFilterView() {
