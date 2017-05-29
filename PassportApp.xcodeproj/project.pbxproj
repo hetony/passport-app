@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		164D02721EDA2EC3007AEC89 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 164D02711EDA2EC3007AEC89 /* GoogleService-Info.plist */; };
+		164D02791EDC4D80007AEC89 /* FirebaseUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164D02781EDC4D80007AEC89 /* FirebaseUserManager.swift */; };
 		166BCB841ED9906E00345A5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166BCB831ED9906E00345A5E /* AppDelegate.swift */; };
 		166BCB891ED9906E00345A5E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 166BCB871ED9906E00345A5E /* Main.storyboard */; };
 		166BCB8B1ED9906E00345A5E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 166BCB8A1ED9906E00345A5E /* Assets.xcassets */; };
 		166BCB8E1ED9906E00345A5E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 166BCB8C1ED9906E00345A5E /* LaunchScreen.storyboard */; };
-		166BCB961ED9931900345A5E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 166BCB951ED9931900345A5E /* GoogleService-Info.plist */; };
 		166BCB981ED9A2EE00345A5E /* UserListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166BCB971ED9A2EE00345A5E /* UserListTableViewController.swift */; };
 		166BCB9A1ED9A3A100345A5E /* FilterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 166BCB991ED9A3A100345A5E /* FilterView.xib */; };
 		166BCB9C1ED9A3B600345A5E /* SearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 166BCB9B1ED9A3B600345A5E /* SearchView.xib */; };
@@ -22,13 +23,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		164D02711EDA2EC3007AEC89 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		164D02781EDC4D80007AEC89 /* FirebaseUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseUserManager.swift; sourceTree = "<group>"; };
 		166BCB801ED9906E00345A5E /* PassportApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PassportApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		166BCB831ED9906E00345A5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		166BCB881ED9906E00345A5E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		166BCB8A1ED9906E00345A5E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		166BCB8D1ED9906E00345A5E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		166BCB8F1ED9906E00345A5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		166BCB951ED9931900345A5E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		166BCB971ED9A2EE00345A5E /* UserListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListTableViewController.swift; sourceTree = "<group>"; };
 		166BCB991ED9A3A100345A5E /* FilterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterView.xib; sourceTree = "<group>"; };
 		166BCB9B1ED9A3B600345A5E /* SearchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchView.xib; sourceTree = "<group>"; };
@@ -73,13 +75,14 @@
 		166BCB821ED9906E00345A5E /* PassportApp */ = {
 			isa = PBXGroup;
 			children = (
+				164D02711EDA2EC3007AEC89 /* GoogleService-Info.plist */,
 				166BCB831ED9906E00345A5E /* AppDelegate.swift */,
+				164D02781EDC4D80007AEC89 /* FirebaseUserManager.swift */,
 				166BCB9F1ED9A5AE00345A5E /* Controller */,
 				169F601A1ED9D3E60016F22B /* Model */,
 				166BCBA01ED9A5B400345A5E /* Storyboards */,
 				166BCBA11ED9A5BF00345A5E /* Views */,
 				166BCB8A1ED9906E00345A5E /* Assets.xcassets */,
-				166BCB951ED9931900345A5E /* GoogleService-Info.plist */,
 				166BCB8F1ED9906E00345A5E /* Info.plist */,
 			);
 			path = PassportApp;
@@ -204,9 +207,9 @@
 				166BCB9A1ED9A3A100345A5E /* FilterView.xib in Resources */,
 				166BCB8E1ED9906E00345A5E /* LaunchScreen.storyboard in Resources */,
 				166BCB9C1ED9A3B600345A5E /* SearchView.xib in Resources */,
-				166BCB961ED9931900345A5E /* GoogleService-Info.plist in Resources */,
 				166BCB8B1ED9906E00345A5E /* Assets.xcassets in Resources */,
 				166BCB891ED9906E00345A5E /* Main.storyboard in Resources */,
+				164D02721EDA2EC3007AEC89 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,6 +270,7 @@
 			files = (
 				166BCB981ED9A2EE00345A5E /* UserListTableViewController.swift in Sources */,
 				169F60191ED9D3DF0016F22B /* Profile.swift in Sources */,
+				164D02791EDC4D80007AEC89 /* FirebaseUserManager.swift in Sources */,
 				169F601C1ED9D7A20016F22B /* PAData.swift in Sources */,
 				166BCB9E1ED9A5A500345A5E /* DetailsProfileViewController.swift in Sources */,
 				166BCB841ED9906E00345A5E /* AppDelegate.swift in Sources */,

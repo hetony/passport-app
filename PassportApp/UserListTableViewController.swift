@@ -9,8 +9,11 @@
 import UIKit
 import Firebase
 
-class UserListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class UserListTableViewController: UIViewController {
 
+    // MARK: Singleton
+    var app = FirebaseUserManager.sharedInstance
+    
     // MARK: - Properties
     var ref: FIRDatabaseReference!
     fileprivate var _refHandle: FIRDatabaseHandle!
@@ -26,11 +29,20 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
         super.viewDidLoad()
         self.usersTableView.delegate = self
         self.usersTableView.dataSource = self
-        configureDatabase()
-        configureStorage()
+        app.configureDatabase()
+        app.configureStorage()
         setupNavBar()
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        registerObservers()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        ref.removeObserver(withHandle: _refHandle)
+    }
 
     // MARK: - View Controller Functions
     func setupNavBar() {
@@ -43,46 +55,56 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
         self.navigationItem.rightBarButtonItem = addProfile
     }
     
+    func registerObservers() {
+        app.refHandle = app.ref.child("profile").observe(.childAdded, with: { (snapshot) in
+            print(snapshot.value)
+            self.profilesSnapshortArray.append(snapshot)
+            let student = Profile.loadStudentFromDictionary(snapshot.value as! [String: Any])
+            self.profileArray?.append(student)
+        })
+        
+        app.refHandle = app.ref.child("profile").observe(.childChanged, with: { (updateSnapshot) in
+            //TODO: look for key matching IDs
+            var updatedUser = updateSnapshot.value as! [String: Any]
+            print(updatedUser)
+            //TODO: compare childs
+            //TODO: Change values
+        })
+    }
+    
     func addNewProfile() {
-        let newProfileController = storyboard?.instantiateViewController(withIdentifier: "DetailsProfileViewController") as! DetailsProfileViewController
-        self.navigationController?.pushViewController(newProfileController, animated: true)
+        //TODO: erase this
+        let data: [String: Any] = [
+            "name": "Idelfonso",
+            "age": 22,
+            "sex": "M"
+        ]
+        
+        ref.child("profiles").childByAutoId().setValue(data)
+        
+        //TODO: Dont erase this
+//        let newProfileController = storyboard?.instantiateViewController(withIdentifier: "DetailsProfileViewController") as! DetailsProfileViewController
+//        newProfileController.newUser = true
+//        self.navigationController?.pushViewController(newProfileController, animated: true)
     }
     
     func showFilterView() {
         //TODO: Show overlay
     }
     
-    
-    // MARK: - Firebase
-    func configureDatabase() {
-        ref = FIRDatabase.database().reference()
-        _refHandle = ref.child("profile").observe(.childAdded, with: { (snapshot) in
-            self.profilesSnapshortArray.append(snapshot)
-            let student = Profile.loadStudentFromDictionary(snapshot.value as! [String: Any])
-            self.profileArray?.append(student)
-        })
-        
-        _refHandle = ref.child("profile").observe(.childChanged, with: { (updateSnapshot) in
-            //TODO: look for key matching IDs
-            //TODO: compare childs
-            //TODO: Change values
-        })
-    }
-    
-    func configureStorage() {
-        storageRef = FIRStorage.storage().reference()
-    }
-    
-    // MARK: - Table view data source
+}
+
+// MARK: -
+extension UserListTableViewController: UITableViewDelegate, UITableViewDataSource {
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 0
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return (self.profileArray?.count)!
     }
-
-    // MARK: - Table view delegate
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UserTableViewCell", for: indexPath)
         
@@ -97,7 +119,7 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailsController = storyboard?.instantiateViewController(withIdentifier: "DetailsProfileViewController") as! DetailsProfileViewController
         detailsController.profile = self.profileArray?[indexPath.row]
+        detailsController.newUser = false
         self.present(detailsController, animated: true, completion: nil)
     }
-    
 }

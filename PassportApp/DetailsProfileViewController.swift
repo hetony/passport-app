@@ -8,14 +8,17 @@
 
 import UIKit
 
-class DetailsProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class DetailsProfileViewController: UIViewController {
 
     // MARK: - Properties
     var profile: Profile?
+    var newUser: Bool?
+    var arrayOfHobbies: [String]?
     
     // MARK: - IBOutlets
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var ageLabel: UILabel!
+
+    @IBOutlet weak var ageTextField: UITextField!
+    @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var sexSwitch: UISegmentedControl!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var hobbiesTableView: UITableView!
@@ -23,19 +26,96 @@ class DetailsProfileViewController: UIViewController, UITableViewDelegate, UITab
     // MARK: - App Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.hobbiesTableView.delegate = self
-        self.hobbiesTableView.dataSource = self
+        setTableView()
         setupNavBar()
+        setImagePicker()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        checkForNewProfile()
     }
 
-    // MARK: - View Controller
+    // MARK: - Setup UI
     func setupNavBar() {
         let saveButton = UIBarButtonItem(title: "save", style: .done, target: self, action: #selector(saveProfileInfo))
         self.navigationItem.rightBarButtonItem = saveButton
     }
     
+    func setImagePicker() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(pickAnImage))
+        profileImageView.isUserInteractionEnabled = true
+        profileImageView.addGestureRecognizer(tapGesture)
+    }
+
+    //MARK: - View Controller
+    func checkForNewProfile() {
+        if let newUser = newUser {
+            if newUser {
+                clearTextFields()
+            } else {
+                showUserProfile()
+            }
+        }
+    }
+    
     func saveProfileInfo() {
-        //TODO: Update user in Firebase
+        let information: [String: Any] = [
+            "name": self.nameTextField.text,
+            "age": self.ageTextField.text,
+            "sex" : self.sexSwitch.selectedSegmentIndex
+        ]
+    }
+    
+    func showUserProfile() {
+        paintSexColor()
+        
+    }
+    
+    func clearTextFields() {
+        
+    }
+    
+    func paintSexColor() {
+        if profile?.sex == "male" {
+            self.view.backgroundColor = UIColor.blue
+        } else {
+            self.view.backgroundColor = UIColor.green
+        }
+    }
+    
+//    func sendSampleImage() {
+//        if let image = UIImage(named: "profilePhoto"), let photoData = UIImageJPEGRepresentation(image, 0.8) {
+//            let imagePath = "profile_photos/\(firebase.pro)"
+//            let metadata = FIRStorageMetadata()
+//            metadata.contentType = "image/jpeg"
+//            
+//            storageRef.child(imagePath).put(photoData, metadata: metadata) { (metadata, error) in
+//                if let error = error {
+//                    print("Error uploading: \(error)")
+//                    return
+//                }
+//                // use sendMessage to add imageURL to database
+//                self.sendJSON(data: ["imageUrl": self.storageRef!.child((metadata?.path)!).description])
+//            }
+//        }
+//    }
+    
+    // MARK: - IBActions
+    
+    
+    @IBAction func sexSwitchChanged(_ sender: UISegmentedControl) {
+        print(sender.selectedSegmentIndex)
+    }
+
+}
+
+extension DetailsProfileViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func setTableView() {
+        self.hobbiesTableView.delegate = self
+        self.hobbiesTableView.dataSource = self
     }
     
     // MARK: - Table view data source
@@ -56,5 +136,28 @@ class DetailsProfileViewController: UIViewController, UITableViewDelegate, UITab
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //TODO: show
     }
+}
 
+extension DetailsProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func pickAnImage() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            imagePickerController.sourceType = .camera
+        } else {
+            imagePickerController.sourceType = .photoLibrary
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let photo = info[UIImagePickerControllerOriginalImage] as? UIImage, let photoData = UIImageJPEGRepresentation(photo, 0.8) {
+//            sendPhoto(photoData: photoData)
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
 }

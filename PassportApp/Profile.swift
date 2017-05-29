@@ -9,13 +9,15 @@
 import Foundation
 
 struct Profile {
+    
+    // MARK: - Properties
     var id: Int?
     var name: String?
     var age: Int?
     var sex: String?
     var hobbies: [String]?
     
-    
+    // MARK: - Functions
     static func loadStudentFromDictionary(_ dictionary: [String: Any]) -> Profile {
         return self.init(id: dictionary["id"] as? Int,
                          name: dictionary["name"] as? String,
