@@ -11,7 +11,7 @@ import Foundation
 struct Profile {
     
     // MARK: - Properties
-    var id: String?
+    var id: Int?
     var name: String?
     var age: Int?
     var sex: String?
@@ -19,7 +19,7 @@ struct Profile {
     
     // MARK: - Functions
     static func loadStudentFromDictionary(_ dictionary: [String: Any]) -> Profile {
-        return self.init(id: dictionary["id"] as? String,
+        return self.init(id: dictionary["id"] as? Int,
                          name: dictionary["name"] as? String,
                          age: dictionary["age"] as? Int,
                          sex: dictionary["sex"] as? String,

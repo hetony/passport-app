@@ -29,11 +29,10 @@ class FirebaseUserManager: NSObject {
     }
     
     func sendProfile(data: [String: Any]) {
-        var mdata = data
-        ref.child(Path.Profiles).childByAutoId().setValue(mdata)
+        ref.child(Path.Profiles).childByAutoId().setValue(data)
     }
     
-    func sendSampleImage(userId: Int) {
+    func sendSampleImage(userId: Int, completionHandler: @escaping (_ metadata: FIRStorageMetadata?, _ success: Bool) -> Void) {
         if let image = UIImage(named: "profilePhoto"), let photoData = UIImageJPEGRepresentation(image, 0.8) {
             let imagePath = "profile_photos/\(userId)"
             let metadata = FIRStorageMetadata()
@@ -42,10 +41,17 @@ class FirebaseUserManager: NSObject {
             storageRef.child(imagePath).put(photoData, metadata: metadata) { (metadata, error) in
                 if let error = error {
                     print("Error uploading: \(error)")
+                    completionHandler(nil, false)
+                    return
+                }
+                
+                guard let metadata = metadata else {
+                    completionHandler(nil, false)
                     return
                 }
                 // use sendMessage to add imageURL to database
-                self.sendProfile(data: ["imageUrl": self.storageRef!.child((metadata?.path)!).description])
+                //self.sendProfile(data: ["imageUrl": self.storageRef!.child((metadata?.path)!).description])
+                completionHandler(metadata, true)
             }
         }
     }

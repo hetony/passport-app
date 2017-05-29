@@ -54,23 +54,25 @@ class DetailsProfileViewController: UIViewController {
     //MARK: - Primary View Controller Functions
     func saveProfileInfo() {
         if validateFields() {
-            let userData: [String: Any] = [
-                "id": self.profile?.id,   //TODO: get UUID
-                "name": self.nameTextField.text,
-                "age": self.ageTextField.text,
-                "sex": self.genderSwitch.isOn,
-                "imageUrl": "g://asdsad"
-            ]
-            app.sendProfile(data: userData)
+            app.sendSampleImage(userId: (self.profile?.id)!, completionHandler: { (metadata, success) in
+                let userData: [String: Any] = [
+                    "id": self.profile?.id ?? "UUID",   //TODO: get UUID
+                    "name": self.nameTextField.text ?? "[no-name]",
+                    "age": self.ageTextField.text ?? "[no-age]",
+                    "sex": self.genderSwitch.isOn,
+                    "imageUrl": self.app.storageRef!.child((metadata!.path)!).description
+                ]
+                self.app.sendProfile(data: userData)
+            })
         } else {
             displayAlertWithError(message: "Please fill up all the fields")
         }
+        //TODO: send and array to play with it
     }
     
     func showUserProfile() {
         paintSexColor()
     }
-    
 
     //MARK: - Secondary View Controller Functions
     func checkForNewProfile() {
@@ -82,7 +84,7 @@ class DetailsProfileViewController: UIViewController {
     }
     
     func validateFields() -> Bool {
-        if !(self.ageTextField.text?.isEmpty)!, !(self.nameTextField.text?.isEmpty)!, !(self.genderLabel.text?.isEmpty)! {
+        if let id = self.profile?.id, !(self.ageTextField.text?.isEmpty)!, !(self.nameTextField.text?.isEmpty)!, !(self.genderLabel.text?.isEmpty)! {
             return true
         } else {
             return false
