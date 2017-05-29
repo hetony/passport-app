@@ -13,11 +13,11 @@ class FirebaseUserManager: NSObject {
 
     static let sharedInstance = FirebaseUserManager()
     // MARK: - Properties
-    var ref: FIRDatabaseReference!
-    var refHandle: FIRDatabaseHandle!
+    var ref:                FIRDatabaseReference!
+    var refHandle:          FIRDatabaseHandle!             // Profiles path handle
     var profilesSnapshortArray: [FIRDataSnapshot]! = []
-    var profileArray: [Profile]?
-    var storageRef: FIRStorageReference!
+    var profileArray:       [Profile]?
+    var storageRef:         FIRStorageReference!
 
     // MARK: - Firebase
     func configureDatabase() {

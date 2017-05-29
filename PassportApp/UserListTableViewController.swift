@@ -15,10 +15,7 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
     var app = FirebaseUserManager.sharedInstance
     
     // MARK: - Properties
-
-    var profilesSnapshortArray: [FIRDataSnapshot]! = []
-    var profileArray: [Profile]?
-    var storageRef: FIRStorageReference!
+    var profiles: [Profile]? = PAData.shared().users
 
     // MARK: - IBOutlets
     @IBOutlet weak var usersTableView: UITableView!
@@ -28,14 +25,12 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
         super.viewDidLoad()
         self.usersTableView.delegate = self
         self.usersTableView.dataSource = self
-        app.configureDatabase()
-        app.configureStorage()
+        
         setupNavBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        registerFirebaseObservers()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -54,22 +49,22 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
         self.navigationItem.rightBarButtonItem = addProfile
     }
     
-    func registerFirebaseObservers() {
-        app.refHandle = app.ref.child(Path.Profiles).observe(.childAdded, with: { (snapshot) in
-            print(snapshot.value)
-            self.profilesSnapshortArray.append(snapshot)
-            let student = Profile.loadStudentFromDictionary(snapshot.value as! [String: Any])
-            self.profileArray?.append(student)
-        })
-        
-        app.refHandle = app.ref.child(Path.Profiles).observe(.childChanged, with: { (updateSnapshot) in
-            //TODO: look for key matching IDs
-            var updatedUser = updateSnapshot.value as! [String: Any]
-            print(updatedUser)
-            //TODO: compare childs
-            //TODO: Change values
-        })
-    }
+//    func registerFirebaseObservers() {
+//        app.refHandle = app.ref.child(Path.Profiles).observe(.childAdded, with: { (snapshot) in
+//            print(snapshot.value)
+//            self.profilesSnapshortArray.append(snapshot)
+//            let student = Profile.loadStudentFromDictionary(snapshot.value as! [String: Any])
+//            self.profileArray?.append(student)
+//        })
+//        
+//        app.refHandle = app.ref.child(Path.Profiles).observe(.childChanged, with: { (updateSnapshot) in
+//            //TODO: look for key matching IDs
+//            var updatedUser = updateSnapshot.value as! [String: Any]
+//            print(updatedUser)
+//            //TODO: compare childs
+//            //TODO: Change values
+//        })
+//    }
     
     func addNewProfile() {
         let newProfileController = storyboard?.instantiateViewController(withIdentifier: "DetailsProfileViewController") as! DetailsProfileViewController
@@ -87,15 +82,15 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (self.profileArray?.count)!
+        return (self.profiles?.count)!
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UserTableViewCell", for: indexPath)
         
-        if profileArray != nil {
-            cell.textLabel?.text = profileArray![indexPath.row].name
-            cell.detailTextLabel?.text = "\(profileArray![indexPath.row].age!)"
+        if profiles != nil {
+            cell.textLabel?.text = profiles![indexPath.row].name
+            cell.detailTextLabel?.text = "\(profiles![indexPath.row].age!)"
         }
         
         return cell
@@ -103,7 +98,7 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailsController = storyboard?.instantiateViewController(withIdentifier: "DetailsProfileViewController") as! DetailsProfileViewController
-        detailsController.profile = self.profileArray?[indexPath.row]
+        detailsController.profile = self.profiles?[indexPath.row]
         detailsController.newUser = false
         self.present(detailsController, animated: true, completion: nil)
     }
