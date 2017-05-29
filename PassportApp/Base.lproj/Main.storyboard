@@ -74,40 +74,50 @@
                                 <rect key="frame" x="-0.5" y="30" width="376" height="637"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="t24-YD-7tN">
-                                        <rect key="frame" x="20" y="0.0" width="336" height="120"/>
+                                        <rect key="frame" x="20" y="0.0" width="336" height="150"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="bev-u4-O7z">
-                                                <rect key="frame" x="0.0" y="0.0" width="163" height="120"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="249" verticalHuggingPriority="249" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="bev-u4-O7z">
+                                                <rect key="frame" x="0.0" y="0.0" width="163" height="150"/>
                                                 <gestureRecognizers/>
                                                 <connections>
                                                     <outletCollection property="gestureRecognizers" destination="RbP-i6-DmK" appends="YES" id="Xn9-I3-PCx"/>
                                                 </connections>
                                             </imageView>
                                             <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="oyF-Ru-CEC">
-                                                <rect key="frame" x="173" y="0.0" width="163" height="120"/>
+                                                <rect key="frame" x="173" y="0.0" width="163" height="150"/>
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PRr-8w-ACl">
-                                                        <rect key="frame" x="0.0" y="0.0" width="163" height="34.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="163" height="44.5"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Age" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="F1B-Cq-Dq7">
-                                                        <rect key="frame" x="0.0" y="42.5" width="163" height="35"/>
+                                                        <rect key="frame" x="0.0" y="52.5" width="163" height="45"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
-                                                    <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="0FT-Qe-I6f">
-                                                        <rect key="frame" x="0.0" y="85.5" width="163" height="35.5"/>
-                                                        <segments>
-                                                            <segment title="M"/>
-                                                            <segment title="F"/>
-                                                        </segments>
-                                                        <connections>
-                                                            <action selector="sexSwitchChanged:" destination="fha-iq-EkQ" eventType="valueChanged" id="Klj-M6-Eyo"/>
-                                                        </connections>
-                                                    </segmentedControl>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="KjT-7w-GZt">
+                                                        <rect key="frame" x="0.0" y="105.5" width="163" height="44.5"/>
+                                                        <subviews>
+                                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" onImage="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="buC-2H-60L">
+                                                                <rect key="frame" x="0.0" y="0.0" width="51" height="44.5"/>
+                                                                <connections>
+                                                                    <action selector="switchPress:" destination="fha-iq-EkQ" eventType="valueChanged" id="zDo-tR-tgS"/>
+                                                                </connections>
+                                                            </switch>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l0b-lI-gMY">
+                                                                <rect key="frame" x="57" y="0.0" width="106" height="44.5"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="l0b-lI-gMY" firstAttribute="height" secondItem="buC-2H-60L" secondAttribute="height" id="JOf-vQ-VP4"/>
+                                                        </constraints>
+                                                    </stackView>
                                                 </subviews>
                                             </stackView>
                                         </subviews>
@@ -115,31 +125,17 @@
                                             <constraint firstItem="oyF-Ru-CEC" firstAttribute="height" secondItem="t24-YD-7tN" secondAttribute="height" id="nDc-1g-8Ri"/>
                                         </constraints>
                                     </stackView>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lDE-L6-IXa">
-                                        <rect key="frame" x="0.0" y="128" width="376" height="509"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Enter your hobbies:" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Eyj-x5-mcM">
+                                        <rect key="frame" x="0.0" y="158" width="376" height="479"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="JKq-GZ-4hf" style="IBUITableViewCellStyleDefault" id="C2I-Ro-wwA">
-                                                <rect key="frame" x="0.0" y="28" width="376" height="44"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="C2I-Ro-wwA" id="mFN-pv-End">
-                                                    <rect key="frame" x="0.0" y="0.0" width="376" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <subviews>
-                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JKq-GZ-4hf">
-                                                            <rect key="frame" x="15" y="0.0" width="346" height="43.5"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                </tableViewCellContentView>
-                                            </tableViewCell>
-                                        </prototypes>
-                                    </tableView>
+                                        <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="Eyj-x5-mcM" firstAttribute="leading" secondItem="NMP-ZT-OWz" secondAttribute="leading" id="TZh-Ca-mEx"/>
+                                    <constraint firstAttribute="trailing" secondItem="Eyj-x5-mcM" secondAttribute="trailing" id="WR5-f7-a5F"/>
                                     <constraint firstItem="t24-YD-7tN" firstAttribute="leading" secondItem="NMP-ZT-OWz" secondAttribute="leading" constant="20" id="bFR-GB-Yk9"/>
                                 </constraints>
                             </stackView>
@@ -154,10 +150,10 @@
                     </view>
                     <connections>
                         <outlet property="ageTextField" destination="F1B-Cq-Dq7" id="NZD-gH-zj9"/>
-                        <outlet property="hobbiesTableView" destination="lDE-L6-IXa" id="TSw-5K-u0x"/>
+                        <outlet property="genderLabel" destination="l0b-lI-gMY" id="UH3-2L-q70"/>
+                        <outlet property="genderSwitch" destination="buC-2H-60L" id="cH3-D1-IIj"/>
                         <outlet property="nameTextField" destination="PRr-8w-ACl" id="GDt-2j-5ox"/>
                         <outlet property="profileImageView" destination="bev-u4-O7z" id="z6X-lI-K81"/>
-                        <outlet property="sexSwitch" destination="0FT-Qe-I6f" id="mYy-ou-Oj2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rz0-3G-Nhu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -199,4 +195,7 @@
             <point key="canvasLocation" x="-1223" y="152"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="placeholder" width="150" height="150"/>
+    </resources>
 </document>

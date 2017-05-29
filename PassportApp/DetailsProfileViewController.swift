@@ -21,14 +21,13 @@ class DetailsProfileViewController: UIViewController {
     // MARK: - IBOutlets
     @IBOutlet weak var ageTextField: UITextField!
     @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var sexSwitch: UISegmentedControl!
     @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var hobbiesTableView: UITableView!
+    @IBOutlet weak var genderSwitch: UISwitch!
+    @IBOutlet weak var genderLabel: UILabel!
     
     // MARK: - App Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setTableView()
         setupNavBar()
         setImagePicker()
         
@@ -51,37 +50,51 @@ class DetailsProfileViewController: UIViewController {
         profileImageView.isUserInteractionEnabled = true
         profileImageView.addGestureRecognizer(tapGesture)
     }
-
-    //MARK: - View Controller
-    func checkForNewProfile() {
-        if let newUser = newUser {
-            if newUser {
-                clearTextFields()
-            } else {
-                showUserProfile()
-            }
-        }
-    }
     
+    //MARK: - Primary View Controller Functions
     func saveProfileInfo() {
-        let data: [String: Any] = [
-            "id": "",   //TODO: get UUID
-            "name": "Idelfonso",
-            "age": 22,
-            "sex": "M",
-            "imageUrl": "g://asdsad"
-        ]
+        if validateFields() {
+            let data: [String: Any] = [
+                "id": "",   //TODO: get UUID
+                "name": self.nameTextField.text,
+                "age": self.ageTextField.text,
+                "sex": "",
+                "imageUrl": "g://asdsad"
+            ]
+            
+            app.ref.child("profiles").childByAutoId().setValue(data)
+        } else {
+            displayAlertWithError(message: "Please fill up all the fields")
+        }
         
-        app.ref.child("profiles").childByAutoId().setValue(data)
     }
     
     func showUserProfile() {
         paintSexColor()
-        
+    }
+    
+
+    //MARK: - Secondary View Controller Functions
+    func checkForNewProfile() {
+        if let newUser = self.newUser, newUser == true {
+            clearTextFields()
+        } else {
+            showUserProfile()
+        }
+    }
+    
+    func validateFields() -> Bool {
+        if !(self.ageTextField.text?.isEmpty)!, !(self.nameTextField.text?.isEmpty)! {
+            return true
+        } else {
+            return false
+        }
     }
     
     func clearTextFields() {
-        
+        self.ageTextField.text = ""
+        self.nameTextField.text = ""
+        self.profileImageView.image = UIImage(named: "placeholder")
     }
     
     func paintSexColor() {
@@ -111,39 +124,18 @@ class DetailsProfileViewController: UIViewController {
 //    }
     
     // MARK: - IBActions
-    
-    
-    @IBAction func sexSwitchChanged(_ sender: UISegmentedControl) {
-        print(sender.selectedSegmentIndex)
+    @IBAction func switchPress(_ sender: UISwitch) {
+        if genderSwitch.isOn {
+            self.view.backgroundColor = UIColor.blue
+            self.genderLabel.textColor = UIColor.white
+            self.genderLabel.text = "MALE"
+        } else {
+            self.view.backgroundColor = UIColor.green
+            self.genderLabel.textColor = UIColor.black
+            self.genderLabel.text = "FEMALE"
+        }
     }
 
-}
-
-extension DetailsProfileViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func setTableView() {
-        self.hobbiesTableView.delegate = self
-        self.hobbiesTableView.dataSource = self
-    }
-    
-    // MARK: - Table view data source
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 0
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
-    }
-    
-    // MARK: - Table view delegate
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "UserTableViewCell", for: indexPath)
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //TODO: show
-    }
 }
 
 extension DetailsProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -156,11 +148,13 @@ extension DetailsProfileViewController: UIImagePickerControllerDelegate, UINavig
         } else {
             imagePickerController.sourceType = .photoLibrary
         }
+        self.present(imagePickerController, animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let photo = info[UIImagePickerControllerOriginalImage] as? UIImage, let photoData = UIImageJPEGRepresentation(photo, 0.8) {
-//            sendPhoto(photoData: photoData)
+            self.profileImageView.image = photo
+//            app.sendPhoto(photoData: photoData)
         }
         picker.dismiss(animated: true, completion: nil)
     }
