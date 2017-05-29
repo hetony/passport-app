@@ -54,19 +54,17 @@ class DetailsProfileViewController: UIViewController {
     //MARK: - Primary View Controller Functions
     func saveProfileInfo() {
         if validateFields() {
-            let data: [String: Any] = [
-                "id": "",   //TODO: get UUID
+            let userData: [String: Any] = [
+                "id": self.profile?.id,   //TODO: get UUID
                 "name": self.nameTextField.text,
                 "age": self.ageTextField.text,
-                "sex": "",
+                "sex": self.genderSwitch.isOn,
                 "imageUrl": "g://asdsad"
             ]
-            
-            app.ref.child("profiles").childByAutoId().setValue(data)
+            app.sendProfile(data: userData)
         } else {
             displayAlertWithError(message: "Please fill up all the fields")
         }
-        
     }
     
     func showUserProfile() {
@@ -84,7 +82,7 @@ class DetailsProfileViewController: UIViewController {
     }
     
     func validateFields() -> Bool {
-        if !(self.ageTextField.text?.isEmpty)!, !(self.nameTextField.text?.isEmpty)! {
+        if !(self.ageTextField.text?.isEmpty)!, !(self.nameTextField.text?.isEmpty)!, !(self.genderLabel.text?.isEmpty)! {
             return true
         } else {
             return false
@@ -106,22 +104,7 @@ class DetailsProfileViewController: UIViewController {
         }
     }
     
-//    func sendSampleImage() {
-//        if let image = UIImage(named: "profilePhoto"), let photoData = UIImageJPEGRepresentation(image, 0.8) {
-//            let imagePath = "profile_photos/\(firebase.pro)"
-//            let metadata = FIRStorageMetadata()
-//            metadata.contentType = "image/jpeg"
-//            
-//            storageRef.child(imagePath).put(photoData, metadata: metadata) { (metadata, error) in
-//                if let error = error {
-//                    print("Error uploading: \(error)")
-//                    return
-//                }
-//                // use sendMessage to add imageURL to database
-//                self.sendJSON(data: ["imageUrl": self.storageRef!.child((metadata?.path)!).description])
-//            }
-//        }
-//    }
+
     
     // MARK: - IBActions
     @IBAction func switchPress(_ sender: UISwitch) {
