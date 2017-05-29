@@ -9,5 +9,5 @@
 import Foundation
 
 struct Path {
-    static var let Profile = "profiles"
+    static let Profiles = "profiles"
 }

@@ -10,6 +10,7 @@
 		164D02721EDA2EC3007AEC89 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 164D02711EDA2EC3007AEC89 /* GoogleService-Info.plist */; };
 		164D02791EDC4D80007AEC89 /* FirebaseUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164D02781EDC4D80007AEC89 /* FirebaseUserManager.swift */; };
 		164D027B1EDC64CE007AEC89 /* FIRConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164D027A1EDC64CE007AEC89 /* FIRConstants.swift */; };
+		164D027F1EDC6BCE007AEC89 /* ActionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164D027E1EDC6BCE007AEC89 /* ActionsViewController.swift */; };
 		166BCB841ED9906E00345A5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166BCB831ED9906E00345A5E /* AppDelegate.swift */; };
 		166BCB891ED9906E00345A5E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 166BCB871ED9906E00345A5E /* Main.storyboard */; };
 		166BCB8B1ED9906E00345A5E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 166BCB8A1ED9906E00345A5E /* Assets.xcassets */; };
@@ -27,6 +28,7 @@
 		164D02711EDA2EC3007AEC89 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		164D02781EDC4D80007AEC89 /* FirebaseUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseUserManager.swift; sourceTree = "<group>"; };
 		164D027A1EDC64CE007AEC89 /* FIRConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIRConstants.swift; sourceTree = "<group>"; };
+		164D027E1EDC6BCE007AEC89 /* ActionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActionsViewController.swift; path = "../../udacity-on-the-map/udacity-on-the-map/ActionsViewController.swift"; sourceTree = "<group>"; };
 		166BCB801ED9906E00345A5E /* PassportApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PassportApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		166BCB831ED9906E00345A5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		166BCB881ED9906E00345A5E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -65,6 +67,14 @@
 			name = Clients;
 			sourceTree = "<group>";
 		};
+		164D027D1EDC6B9E007AEC89 /* UIExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				164D027E1EDC6BCE007AEC89 /* ActionsViewController.swift */,
+			);
+			name = UIExtensions;
+			sourceTree = "<group>";
+		};
 		166BCB771ED9906E00345A5E = {
 			isa = PBXGroup;
 			children = (
@@ -92,6 +102,7 @@
 				166BCB9F1ED9A5AE00345A5E /* Controller */,
 				169F601A1ED9D3E60016F22B /* Model */,
 				166BCBA01ED9A5B400345A5E /* Storyboards */,
+				164D027D1EDC6B9E007AEC89 /* UIExtensions */,
 				166BCBA11ED9A5BF00345A5E /* Views */,
 				166BCB8A1ED9906E00345A5E /* Assets.xcassets */,
 				166BCB8F1ED9906E00345A5E /* Info.plist */,
@@ -285,6 +296,7 @@
 				169F601C1ED9D7A20016F22B /* PAData.swift in Sources */,
 				166BCB9E1ED9A5A500345A5E /* DetailsProfileViewController.swift in Sources */,
 				166BCB841ED9906E00345A5E /* AppDelegate.swift in Sources */,
+				164D027F1EDC6BCE007AEC89 /* ActionsViewController.swift in Sources */,
 				164D027B1EDC64CE007AEC89 /* FIRConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

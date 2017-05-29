@@ -11,6 +11,7 @@ import UIKit
 class DetailsProfileViewController: UIViewController {
 
     // MARK: - Singleton property
+    var app = FirebaseUserManager.sharedInstance
     
     // MARK: - Properties
     var profile: Profile?
@@ -69,7 +70,7 @@ class DetailsProfileViewController: UIViewController {
             "imageUrl": "g://asdsad"
         ]
         
-        ref.child("profiles").childByAutoId().setValue(data)
+        app.ref.child("profiles").childByAutoId().setValue(data)
     }
     
     func showUserProfile() {
@@ -82,6 +83,7 @@ class DetailsProfileViewController: UIViewController {
     }
     
     func paintSexColor() {
+        profile?.sex = "male" 
         if profile?.sex == "male" {
             self.view.backgroundColor = UIColor.blue
         } else {

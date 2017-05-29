@@ -9,14 +9,13 @@
 import UIKit
 import Firebase
 
-class UserListTableViewController: UIViewController {
+class UserListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     // MARK: Singleton
     var app = FirebaseUserManager.sharedInstance
     
     // MARK: - Properties
-    var ref: FIRDatabaseReference!
-    fileprivate var _refHandle: FIRDatabaseHandle!
+
     var profilesSnapshortArray: [FIRDataSnapshot]! = []
     var profileArray: [Profile]?
     var storageRef: FIRStorageReference!
@@ -41,7 +40,7 @@ class UserListTableViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        ref.removeObserver(withHandle: _refHandle)
+        app.ref.removeObserver(withHandle: app.refHandle)
     }
 
     // MARK: - View Controller Functions
@@ -56,14 +55,14 @@ class UserListTableViewController: UIViewController {
     }
     
     func registerFirebaseObservers() {
-        app.refHandle = app.ref.child("profiles").observe(.childAdded, with: { (snapshot) in
+        app.refHandle = app.ref.child(Path.Profiles).observe(.childAdded, with: { (snapshot) in
             print(snapshot.value)
             self.profilesSnapshortArray.append(snapshot)
             let student = Profile.loadStudentFromDictionary(snapshot.value as! [String: Any])
             self.profileArray?.append(student)
         })
         
-        app.refHandle = app.ref.child("profiles").observe(.childChanged, with: { (updateSnapshot) in
+        app.refHandle = app.ref.child(Path.Profiles).observe(.childChanged, with: { (updateSnapshot) in
             //TODO: look for key matching IDs
             var updatedUser = updateSnapshot.value as! [String: Any]
             print(updatedUser)
@@ -82,13 +81,9 @@ class UserListTableViewController: UIViewController {
         //TODO: Show overlay
     }
     
-}
-
-// MARK: -
-extension UserListTableViewController: UITableViewDelegate, UITableViewDataSource {
-
+    //MARK: - UITableViewDelegate DataSources
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 0
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
