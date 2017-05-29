@@ -11,6 +11,7 @@
 		164D02791EDC4D80007AEC89 /* FirebaseUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164D02781EDC4D80007AEC89 /* FirebaseUserManager.swift */; };
 		164D027B1EDC64CE007AEC89 /* FIRConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164D027A1EDC64CE007AEC89 /* FIRConstants.swift */; };
 		164D027F1EDC6BCE007AEC89 /* ActionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164D027E1EDC6BCE007AEC89 /* ActionsViewController.swift */; };
+		164D02811EDC7282007AEC89 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164D02801EDC7282007AEC89 /* IntroViewController.swift */; };
 		166BCB841ED9906E00345A5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166BCB831ED9906E00345A5E /* AppDelegate.swift */; };
 		166BCB891ED9906E00345A5E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 166BCB871ED9906E00345A5E /* Main.storyboard */; };
 		166BCB8B1ED9906E00345A5E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 166BCB8A1ED9906E00345A5E /* Assets.xcassets */; };
@@ -29,6 +30,7 @@
 		164D02781EDC4D80007AEC89 /* FirebaseUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseUserManager.swift; sourceTree = "<group>"; };
 		164D027A1EDC64CE007AEC89 /* FIRConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIRConstants.swift; sourceTree = "<group>"; };
 		164D027E1EDC6BCE007AEC89 /* ActionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActionsViewController.swift; path = "../../udacity-on-the-map/udacity-on-the-map/ActionsViewController.swift"; sourceTree = "<group>"; };
+		164D02801EDC7282007AEC89 /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		166BCB801ED9906E00345A5E /* PassportApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PassportApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		166BCB831ED9906E00345A5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		166BCB881ED9906E00345A5E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 		166BCB9F1ED9A5AE00345A5E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				164D02801EDC7282007AEC89 /* IntroViewController.swift */,
 				166BCB971ED9A2EE00345A5E /* UserListTableViewController.swift */,
 				166BCB9D1ED9A5A500345A5E /* DetailsProfileViewController.swift */,
 			);
@@ -290,6 +293,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				164D02811EDC7282007AEC89 /* IntroViewController.swift in Sources */,
 				166BCB981ED9A2EE00345A5E /* UserListTableViewController.swift in Sources */,
 				169F60191ED9D3DF0016F22B /* Profile.swift in Sources */,
 				164D02791EDC4D80007AEC89 /* FirebaseUserManager.swift in Sources */,
