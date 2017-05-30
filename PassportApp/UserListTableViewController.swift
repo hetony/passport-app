@@ -18,24 +18,25 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
     // MARK: - IBOutlets
     @IBOutlet weak var usersTableView: UITableView!
     @IBOutlet weak var screenSaver: UIView!
+    @IBOutlet weak var passportTitleLabel: UILabel!
     
     
     // MARK: - App Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavBar()
+        self.passportApp.users = []
         firebaseApp.configureDatabase()
         firebaseApp.configureStorage()
+        loadFirebaseData()
         
-        //TODO: Init array of users, will this be reset everytime??
-        self.passportApp.users = []
-        setupNavBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        loadFirebaseData()
+        self.screenSaver.isHidden = false
         let indicator = startActivityIndicatorAnimation()
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
             self.usersTableView.reloadData()
             self.screenSaver.isHidden = true
             self.stopActivityIndicatorAnimation(indicator: indicator)
