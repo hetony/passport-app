@@ -13,11 +13,18 @@ import Firebase
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var navController: UINavigationController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FIRApp.configure()
+        
+//        self.window = UIWindow()
+//        let userViewController = UserListTableViewController()
+//        self.navController = UINavigationController(rootViewController: userViewController)
+//        self.window?.rootViewController = self.navController
+//        self.window?.makeKeyAndVisible()
+        
         return true
     }
 
