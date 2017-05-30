@@ -11,11 +11,5 @@ import UIKit
 class PAData: NSObject {
     var users: [Profile]?
     var myProfile: Profile?
-    
-    static func shared() -> PAData {
-        struct Singleton {
-            static var sharedInstance = PAData()
-        }
-        return Singleton.sharedInstance
-    }
+    static let sharedInstance = PAData()
 }

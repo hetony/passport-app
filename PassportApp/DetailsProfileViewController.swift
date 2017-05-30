@@ -11,8 +11,9 @@ import UIKit
 class DetailsProfileViewController: UIViewController {
 
     // MARK: - Singleton property
-    var app = FirebaseUserManager.sharedInstance
-    var data = PAData.shared()
+    var firebaseApp = FirebaseUserManager.sharedInstance
+    var passportApp = PAData.sharedInstance
+    
     // MARK: - Properties
     var profile: Profile?
     var arrayOfHobbies: [String]?
@@ -29,12 +30,12 @@ class DetailsProfileViewController: UIViewController {
         super.viewDidLoad()
         setupNavBar()
         setImagePicker()
-        
+        checkForNewProfile()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        checkForNewProfile()
     }
 
     // MARK: - Setup UI
@@ -53,7 +54,7 @@ class DetailsProfileViewController: UIViewController {
     //MARK: - Primary View Controller Functions
     func saveProfileInfo() {
         if validateFields() {   // Check for all fields completed
-            app.sendSampleImage(profileImage: self.profileImageView.image, userId: (self.profile?.id)!, completionHandler: { (metadata, success) in
+            firebaseApp.sendSampleImage(profileImage: self.profileImageView.image, userId: (self.profile?.id)!, completionHandler: { (metadata, success) in
                 if !success {   // Check for image place in Storage
                     print("Could not store image")
                 } else {
@@ -62,9 +63,10 @@ class DetailsProfileViewController: UIViewController {
                         "name": self.nameTextField.text ?? "[no-name]",
                         "age": self.ageTextField.text ?? "[no-age]",
                         "sex": self.genderSwitch.isOn,
-                        "imageUrl": self.app.storageRef!.child((metadata!.path)!).description
+                        "imageUrl": self.firebaseApp.storageRef!.child((metadata!.path)!).description
                     ]
-                    self.app.sendProfile(data: userData)
+                    self.firebaseApp.sendProfile(data: userData)
+                    self.navigationController?.popViewController(animated: true)
                 }
             })
         } else {
@@ -75,10 +77,13 @@ class DetailsProfileViewController: UIViewController {
     
     func showUserProfile() {
         paintSexColor()
+        // TODO: use updateChildValues() instead of sending a new json
+        
     }
 
     //MARK: - Secondary View Controller Functions
     func checkForNewProfile() {
+        //TODO: only call once, dont call in view will appear
         if let newUser = self.profile?.newUser, newUser == true {
             clearTextFields()
         } else {

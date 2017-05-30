@@ -12,10 +12,8 @@ import Firebase
 class UserListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     // MARK: Singleton
-    var app = FirebaseUserManager.sharedInstance
-    
-    // MARK: - Properties
-    var profiles: [Profile]? = PAData.shared().users
+    var firebaseApp = FirebaseUserManager.sharedInstance
+    var passportApp = PAData.sharedInstance
 
     // MARK: - IBOutlets
     @IBOutlet weak var usersTableView: UITableView!
@@ -25,19 +23,20 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
         super.viewDidLoad()
         self.usersTableView.delegate = self
         self.usersTableView.dataSource = self
-        
+        loadFirebaseData()
         setupNavBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.usersTableView.reloadData()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
     }
 
-    // MARK: - View Controller Functions
+    // MARK: - UserListTable View Controller Functions
     func setupNavBar() {
         self.navigationItem.title = "Passport Inc"
         
@@ -48,12 +47,25 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
         self.navigationItem.rightBarButtonItem = addProfile
     }
     
+    func loadFirebaseData() {
+        firebaseApp.registerUserAddedObserver { (dictionary) in
+            let user = Profile.loadStudentFromDictionary(dictionary)
+            self.passportApp.users?.append(user)
+            print(user.name)
+        }
+    }
+
+    
     func getNextIDNumber() -> Int {
         //Assuming that there is a full array an int value will be retrieve
-        if self.profiles?.count == 0 {
+        if self.passportApp.users?.count == 0 {
             return 0
+        }
+        
+        if self.passportApp.users?.count == 1 {
+            return 1
         } else {
-            return (self.profiles?[(self.profiles?.count)! - 1].id)!
+            return (self.passportApp.users?[(self.passportApp.users?.count)! - 1].id)!
         }
     }
     
@@ -77,7 +89,7 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let count = self.profiles?.count {
+        if let count = self.passportApp.users?.count {
             return count
         } else {
             return 0
@@ -89,9 +101,9 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
         
         //FIXME: checking for empty array
         // this is caught when it first retrieves DB with no users in the introViewController
-        if profiles != nil {
-            cell.textLabel?.text = profiles![indexPath.row].name
-            cell.detailTextLabel?.text = "\(profiles![indexPath.row].age!)"
+        if passportApp.users != nil {
+            cell.textLabel?.text = passportApp.users![indexPath.row].name
+            cell.detailTextLabel?.text = "\(passportApp.users![indexPath.row].age!)"
         }
         
         return cell
@@ -99,7 +111,7 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailsController = storyboard?.instantiateViewController(withIdentifier: "DetailsProfileViewController") as! DetailsProfileViewController
-        detailsController.profile = self.profiles?[indexPath.row]
+        detailsController.profile = self.passportApp.users?[indexPath.row]
         self.navigationController?.pushViewController(detailsController, animated: true)
     }
 }
