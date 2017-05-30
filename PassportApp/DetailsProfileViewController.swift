@@ -94,7 +94,6 @@ class DetailsProfileViewController: UIViewController {
     func clearTextFields() {
         self.ageTextField.text = ""
         self.nameTextField.text = ""
-        self.profileImageView.image = UIImage(named: "placeholder")
     }
     
     func paintSexColor() {
@@ -140,6 +139,8 @@ extension DetailsProfileViewController: UIImagePickerControllerDelegate, UINavig
         if let photo = info[UIImagePickerControllerOriginalImage] as? UIImage, let photoData = UIImageJPEGRepresentation(photo, 0.8) {
             self.profileImageView.image = photo
 //            app.sendPhoto(photoData: photoData)
+        } else {
+            print("something went wrong")
         }
         picker.dismiss(animated: true, completion: nil)
     }
