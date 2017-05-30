@@ -16,6 +16,7 @@ struct Profile {
     var age: Int?
     var sex: String?
     var hobbies: [String]?
+    var newUser: Bool?
     
     // MARK: - Functions
     static func loadStudentFromDictionary(_ dictionary: [String: Any]) -> Profile {
@@ -23,6 +24,7 @@ struct Profile {
                          name: dictionary["name"] as? String,
                          age: dictionary["age"] as? Int,
                          sex: dictionary["sex"] as? String,
-                         hobbies: dictionary["hobbies"] as? [String])
+                         hobbies: dictionary["hobbies"] as? [String],
+                         newUser: dictionary["newUser"] as? Bool)
     }
 }

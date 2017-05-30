@@ -48,26 +48,22 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
         self.navigationItem.rightBarButtonItem = addProfile
     }
     
-//    func registerFirebaseObservers() {
-//        app.refHandle = app.ref.child(Path.Profiles).observe(.childAdded, with: { (snapshot) in
-//            print(snapshot.value)
-//            self.profilesSnapshortArray.append(snapshot)
-//            let student = Profile.loadStudentFromDictionary(snapshot.value as! [String: Any])
-//            self.profileArray?.append(student)
-//        })
-//        
-//        app.refHandle = app.ref.child(Path.Profiles).observe(.childChanged, with: { (updateSnapshot) in
-//            //TODO: look for key matching IDs
-//            var updatedUser = updateSnapshot.value as! [String: Any]
-//            print(updatedUser)
-//            //TODO: compare childs
-//            //TODO: Change values
-//        })
-//    }
+    func getNextIDNumber() -> Int {
+        //Assuming that there is a full array an int value will be retrieve
+        if self.profiles?.count == 0 {
+            return 0
+        } else {
+            return (self.profiles?[(self.profiles?.count)! - 1].id)!
+        }
+    }
     
+    
+    // MARK: - Actions
     func addNewProfile() {
         let newProfileController = storyboard?.instantiateViewController(withIdentifier: "DetailsProfileViewController") as! DetailsProfileViewController
-        newProfileController.newUser = true
+        let newId = getNextIDNumber()
+        let newProfile = Profile(id: newId, name: nil, age: nil, sex: nil, hobbies: nil, newUser: true)
+        newProfileController.profile = newProfile
         self.navigationController?.pushViewController(newProfileController, animated: true)
     }
     
@@ -91,6 +87,8 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UserTableViewCell", for: indexPath)
         
+        //FIXME: checking for empty array
+        // this is caught when it first retrieves DB with no users in the introViewController
         if profiles != nil {
             cell.textLabel?.text = profiles![indexPath.row].name
             cell.detailTextLabel?.text = "\(profiles![indexPath.row].age!)"
@@ -102,7 +100,6 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailsController = storyboard?.instantiateViewController(withIdentifier: "DetailsProfileViewController") as! DetailsProfileViewController
         detailsController.profile = self.profiles?[indexPath.row]
-        detailsController.newUser = false
         self.navigationController?.pushViewController(detailsController, animated: true)
     }
 }

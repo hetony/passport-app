@@ -16,7 +16,6 @@ class FirebaseUserManager: NSObject {
     var ref:                FIRDatabaseReference!
     var refHandle:          FIRDatabaseHandle!             // Profiles path handle
     var profilesSnapshortArray: [FIRDataSnapshot]! = []
-    var profileArray:       [Profile]?
     var storageRef:         FIRStorageReference!
 
     // MARK: - Firebase
@@ -32,8 +31,8 @@ class FirebaseUserManager: NSObject {
         ref.child(Path.Profiles).childByAutoId().setValue(data)
     }
     
-    func sendSampleImage(userId: Int, completionHandler: @escaping (_ metadata: FIRStorageMetadata?, _ success: Bool) -> Void) {
-        if let image = UIImage(named: "profilePhoto"), let photoData = UIImageJPEGRepresentation(image, 0.8) {
+    func sendSampleImage(profileImage: UIImage?, userId: Int, completionHandler: @escaping (_ metadata: FIRStorageMetadata?, _ success: Bool) -> Void) {
+        if let image = profileImage, let photoData = UIImageJPEGRepresentation(image, 0.8) {
             let imagePath = "profile_photos/\(userId)"
             let metadata = FIRStorageMetadata()
             metadata.contentType = "image/jpeg"
@@ -53,6 +52,8 @@ class FirebaseUserManager: NSObject {
                 //self.sendProfile(data: ["imageUrl": self.storageRef!.child((metadata?.path)!).description])
                 completionHandler(metadata, true)
             }
+        } else {
+            completionHandler(nil, false)
         }
     }
 }

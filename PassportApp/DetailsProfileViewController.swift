@@ -12,10 +12,9 @@ class DetailsProfileViewController: UIViewController {
 
     // MARK: - Singleton property
     var app = FirebaseUserManager.sharedInstance
-    
+    var data = PAData.shared()
     // MARK: - Properties
     var profile: Profile?
-    var newUser: Bool?
     var arrayOfHobbies: [String]?
     
     // MARK: - IBOutlets
@@ -53,16 +52,20 @@ class DetailsProfileViewController: UIViewController {
     
     //MARK: - Primary View Controller Functions
     func saveProfileInfo() {
-        if validateFields() {
-            app.sendSampleImage(userId: (self.profile?.id)!, completionHandler: { (metadata, success) in
-                let userData: [String: Any] = [
-                    "id": self.profile?.id ?? "UUID",   //TODO: get UUID
-                    "name": self.nameTextField.text ?? "[no-name]",
-                    "age": self.ageTextField.text ?? "[no-age]",
-                    "sex": self.genderSwitch.isOn,
-                    "imageUrl": self.app.storageRef!.child((metadata!.path)!).description
-                ]
-                self.app.sendProfile(data: userData)
+        if validateFields() {   // Check for all fields completed
+            app.sendSampleImage(profileImage: self.profileImageView.image, userId: (self.profile?.id)!, completionHandler: { (metadata, success) in
+                if !success {   // Check for image place in Storage
+                    print("Could not store image")
+                } else {
+                    let userData: [String: Any] = [
+                        "id": self.profile?.id ?? "UUID",   //TODO: get UUID
+                        "name": self.nameTextField.text ?? "[no-name]",
+                        "age": self.ageTextField.text ?? "[no-age]",
+                        "sex": self.genderSwitch.isOn,
+                        "imageUrl": self.app.storageRef!.child((metadata!.path)!).description
+                    ]
+                    self.app.sendProfile(data: userData)
+                }
             })
         } else {
             displayAlertWithError(message: "Please fill up all the fields")
@@ -76,7 +79,7 @@ class DetailsProfileViewController: UIViewController {
 
     //MARK: - Secondary View Controller Functions
     func checkForNewProfile() {
-        if let newUser = self.newUser, newUser == true {
+        if let newUser = self.profile?.newUser, newUser == true {
             clearTextFields()
         } else {
             showUserProfile()
@@ -84,10 +87,15 @@ class DetailsProfileViewController: UIViewController {
     }
     
     func validateFields() -> Bool {
-        if let id = self.profile?.id, !(self.ageTextField.text?.isEmpty)!, !(self.nameTextField.text?.isEmpty)!, !(self.genderLabel.text?.isEmpty)! {
-            return true
+        if (self.profile?.id) != nil {
+            if !(self.ageTextField.text?.isEmpty)!, !(self.nameTextField.text?.isEmpty)!, !(self.genderLabel.text?.isEmpty)! {
+                return true
+            } else {
+                return false
+            }
         } else {
-            return false
+            //Create new user profiles
+            return validateFields()
         }
     }
     
@@ -137,6 +145,7 @@ extension DetailsProfileViewController: UIImagePickerControllerDelegate, UINavig
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let photo = info[UIImagePickerControllerOriginalImage] as? UIImage, let photoData = UIImageJPEGRepresentation(photo, 0.8) {
+            UserDefaults.standard.set(true, forKey: kSetProfilePicture)
             self.profileImageView.image = photo
 //            app.sendPhoto(photoData: photoData)
         } else {

@@ -20,6 +20,7 @@
 		166BCB9A1ED9A3A100345A5E /* FilterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 166BCB991ED9A3A100345A5E /* FilterView.xib */; };
 		166BCB9C1ED9A3B600345A5E /* SearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 166BCB9B1ED9A3B600345A5E /* SearchView.xib */; };
 		166BCB9E1ED9A5A500345A5E /* DetailsProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166BCB9D1ED9A5A500345A5E /* DetailsProfileViewController.swift */; };
+		166FBE201EDD8B2A001079A5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166FBE1F1EDD8B2A001079A5 /* Constants.swift */; };
 		169F60191ED9D3DF0016F22B /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169F60181ED9D3DF0016F22B /* Profile.swift */; };
 		169F601C1ED9D7A20016F22B /* PAData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169F601B1ED9D7A20016F22B /* PAData.swift */; };
 		31EC396A87C20CEC77C6628E /* Pods_PassportApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7C44566AB933B2ECD74397 /* Pods_PassportApp.framework */; };
@@ -41,6 +42,7 @@
 		166BCB991ED9A3A100345A5E /* FilterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterView.xib; sourceTree = "<group>"; };
 		166BCB9B1ED9A3B600345A5E /* SearchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchView.xib; sourceTree = "<group>"; };
 		166BCB9D1ED9A5A500345A5E /* DetailsProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsProfileViewController.swift; sourceTree = "<group>"; };
+		166FBE1F1EDD8B2A001079A5 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		169F60181ED9D3DF0016F22B /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		169F601B1ED9D7A20016F22B /* PAData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PAData.swift; sourceTree = "<group>"; };
 		4D7C44566AB933B2ECD74397 /* Pods_PassportApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PassportApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,6 +110,7 @@
 				166BCBA11ED9A5BF00345A5E /* Views */,
 				166BCB8A1ED9906E00345A5E /* Assets.xcassets */,
 				166BCB8F1ED9906E00345A5E /* Info.plist */,
+				166FBE1F1EDD8B2A001079A5 /* Constants.swift */,
 			);
 			path = PassportApp;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 				169F60191ED9D3DF0016F22B /* Profile.swift in Sources */,
 				164D02791EDC4D80007AEC89 /* FirebaseUserManager.swift in Sources */,
 				169F601C1ED9D7A20016F22B /* PAData.swift in Sources */,
+				166FBE201EDD8B2A001079A5 /* Constants.swift in Sources */,
 				166BCB9E1ED9A5A500345A5E /* DetailsProfileViewController.swift in Sources */,
 				166BCB841ED9906E00345A5E /* AppDelegate.swift in Sources */,
 				164D027F1EDC6BCE007AEC89 /* ActionsViewController.swift in Sources */,
