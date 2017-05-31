@@ -81,9 +81,10 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
         for user in passportApp.users! {
             if updatedUser == user {
                 let index = passportApp.users?.index(of: user)
-                print(index)
+                self.passportApp.users?[index!] = updatedUser
             }
         }
+        print(self.passportApp.users)
     }
     
     /* Set userID*/
@@ -92,7 +93,7 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
             return 0
         }
         
-        if arrCount - 1 == 0 {
+        if arrCount == 0 {
             return 0
         }
         
