@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -94,6 +95,64 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UZg-78-yvO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="0eV-WO-01s">
+                    <rect key="frame" x="0.0" y="0.0" width="239" height="200"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="USS-q0-OcW">
+                            <rect key="frame" x="8" y="162" width="223" height="30"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zWv-Yl-7B6">
+                                    <rect key="frame" x="0.0" y="0.0" width="107.5" height="30"/>
+                                    <state key="normal" title="CLEAR"/>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o7F-wJ-7s1">
+                                    <rect key="frame" x="115.5" y="0.0" width="107.5" height="30"/>
+                                    <state key="normal" title="FILTER"/>
+                                </button>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pha-Cu-p49">
+                            <rect key="frame" x="38.5" y="68" width="162" height="64"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="aCA-ex-vmC">
+                                    <rect key="frame" x="0.0" y="0.0" width="162" height="28"/>
+                                    <subviews>
+                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="rev-2u-fOf">
+                                            <rect key="frame" x="0.0" y="0.0" width="101" height="29"/>
+                                            <segments>
+                                                <segment title="Name"/>
+                                                <segment title="Age"/>
+                                            </segments>
+                                        </segmentedControl>
+                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Zjk-zr-X9c">
+                                            <rect key="frame" x="109" y="0.0" width="53" height="29"/>
+                                            <segments>
+                                                <segment title="↑"/>
+                                                <segment title="↓"/>
+                                            </segments>
+                                        </segmentedControl>
+                                    </subviews>
+                                </stackView>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3E7-Nt-LjW">
+                                    <rect key="frame" x="0.0" y="36" width="162" height="29"/>
+                                    <segments>
+                                        <segment title="Male"/>
+                                        <segment title="Female"/>
+                                    </segments>
+                                </segmentedControl>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.8194433176" green="1" blue="0.3147870304" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="pha-Cu-p49" firstAttribute="centerY" secondItem="0eV-WO-01s" secondAttribute="centerY" id="GFS-0T-zmi"/>
+                        <constraint firstAttribute="trailingMargin" secondItem="USS-q0-OcW" secondAttribute="trailing" id="JYq-oi-xhH"/>
+                        <constraint firstItem="pha-Cu-p49" firstAttribute="centerX" secondItem="0eV-WO-01s" secondAttribute="centerX" id="U2B-o8-f4s"/>
+                        <constraint firstAttribute="bottomMargin" secondItem="USS-q0-OcW" secondAttribute="bottom" id="VPc-so-wNZ"/>
+                        <constraint firstItem="USS-q0-OcW" firstAttribute="leading" secondItem="0eV-WO-01s" secondAttribute="leadingMargin" id="Xxd-kS-uur"/>
+                    </constraints>
+                </view>
             </objects>
             <point key="canvasLocation" x="-474.39999999999998" y="236.13193403298354"/>
         </scene>
