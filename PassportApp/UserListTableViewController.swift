@@ -36,7 +36,7 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
         super.viewWillAppear(animated)
         self.screenSaver.isHidden = false
         let indicator = startActivityIndicatorAnimation()
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
             self.usersTableView.reloadData()
             self.screenSaver.isHidden = true
             self.stopActivityIndicatorAnimation(indicator: indicator)
@@ -67,18 +67,13 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
         firebaseApp.registerUserUpdatedObserver { (dictionary) in
             let updateUser = Profile.loadStudentFromDictionary(dictionary)
             
-            for var user in self.passportApp.users! {
-                //TODO:
-                //is actually no replacin the user in the array
-                // is replacin the top var 
-                
-                //TODO:
-                //rebase: the user id is always set to zero on the first 2 users
-                if user.id == updateUser.id {
-                    user = updateUser
-                }
-            }
+            var index = self.passportApp.users?.index(where: { (user) -> Bool in
+                user.id == updateUser.id
+            })
+            
+            self.passportApp.users?[index!] = updateUser
             print(self.passportApp.users)
+            
         }
     }
 
@@ -92,7 +87,7 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
         if self.passportApp.users?.count == 1 {
             return 1
         } else {
-            return (self.passportApp.users?[(self.passportApp.users?.count)! - 1].id)! + 1
+            return ((self.passportApp.users?.count)! + 1)
         }
     }
     

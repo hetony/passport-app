@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -125,28 +126,28 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" verticalHuggingPriority="248" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dFO-gD-EC0">
                                                 <rect key="frame" x="0.0" y="139" width="375" height="292"/>
                                                 <subviews>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="248" verticalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bat-VT-fGF">
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="248" verticalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bat-VT-fGF">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="92"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="248" verticalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Age" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oBe-zt-Zgx">
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="248" verticalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Age" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oBe-zt-Zgx">
                                                         <rect key="frame" x="0.0" y="100" width="375" height="92"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                     </textField>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cmC-YN-z9k">
                                                         <rect key="frame" x="0.0" y="200" width="375" height="92"/>
                                                         <subviews>
                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" verticalHuggingPriority="248" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="36y-jb-qCj">
-                                                                <rect key="frame" x="0.0" y="0.0" width="185.5" height="92"/>
+                                                                <rect key="frame" x="0.0" y="10" width="185.5" height="72"/>
                                                                 <connections>
                                                                     <action selector="switchPress:" destination="fha-iq-EkQ" eventType="valueChanged" id="jme-O1-FE7"/>
                                                                 </connections>
                                                             </switch>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="248" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PCX-qS-lwg">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="248" text="Gender" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PCX-qS-lwg">
                                                                 <rect key="frame" x="191.5" y="6" width="183.5" height="80"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
@@ -154,8 +155,10 @@
                                                             </label>
                                                         </subviews>
                                                         <constraints>
-                                                            <constraint firstItem="36y-jb-qCj" firstAttribute="top" secondItem="cmC-YN-z9k" secondAttribute="top" id="By5-r0-JqK"/>
+                                                            <constraint firstItem="36y-jb-qCj" firstAttribute="top" secondItem="cmC-YN-z9k" secondAttribute="top" constant="10" id="By5-r0-JqK"/>
+                                                            <constraint firstAttribute="bottomMargin" secondItem="36y-jb-qCj" secondAttribute="bottom" constant="10" id="MY4-3g-P1O"/>
                                                             <constraint firstItem="PCX-qS-lwg" firstAttribute="top" secondItem="cmC-YN-z9k" secondAttribute="top" constant="6" id="lpg-L8-qrY"/>
+                                                            <constraint firstItem="PCX-qS-lwg" firstAttribute="leading" secondItem="36y-jb-qCj" secondAttribute="trailing" constant="8" id="wcg-Vj-CaZ"/>
                                                         </constraints>
                                                     </stackView>
                                                 </subviews>
