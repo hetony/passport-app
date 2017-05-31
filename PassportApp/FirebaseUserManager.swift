@@ -55,7 +55,10 @@ class FirebaseUserManager: NSObject {
     
     /* NewUser observer */
     func registerUserAddedObserver(withCompletionHandler: @escaping(_ dictionary: [String: Any], _ withKey: String) -> Void) {
-        _refHandle = ref.child(Path.Profiles).observe(.childAdded, with: { (snapshot) in
+        /*
+         Althought we are adding childs sequentially, one can sort the snapshot been retrieve by a specific key
+         */
+        _refHandle = ref.child(Path.Profiles).queryOrdered(byChild: "id").observe(.childAdded, with: { (snapshot) in
             let addedUser = snapshot.value as! [String: Any]
             withCompletionHandler(addedUser, snapshot.key)
         })
