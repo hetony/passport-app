@@ -32,6 +32,19 @@ class FirebaseUserManager: NSObject {
         ref.child(Path.Profiles).childByAutoId().setValue(data)
     }
     
+    func updateProfile(data: [String: Any]) {
+        ref.child(Path.Profiles).updateChildValues(data) { (error, database) in
+            //TODO: catch exception
+        }
+    }
+    
+    func setImageProfile(imageUrl: String, completionHandler: @escaping(_ imageData: AnyObject?) -> Void) {
+        FIRStorage.storage().reference(forURL: imageUrl).data(withMaxSize: INT64_MAX){ (data, error) in
+            
+            let imageData = UIImage.init(data: data!, scale: 50)
+            completionHandler(imageData)
+        }
+    }
     func registerUserAddedObserver(withCompletionHandler: @escaping(_ dictionary: [String: Any]) -> Void) {
         //New user added
         _refHandle = ref.child(Path.Profiles).observe(.childAdded, with: { (snapshot) in

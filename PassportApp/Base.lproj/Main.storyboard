@@ -187,6 +187,7 @@
                         <outlet property="ageTextField" destination="oBe-zt-Zgx" id="ZYp-DT-T4g"/>
                         <outlet property="genderLabel" destination="PCX-qS-lwg" id="lL0-Or-Wwp"/>
                         <outlet property="genderSwitch" destination="36y-jb-qCj" id="phx-oq-jTg"/>
+                        <outlet property="hobbiesTextView" destination="81P-Yj-PCd" id="9fq-X6-mmU"/>
                         <outlet property="nameTextField" destination="Bat-VT-fGF" id="Zsv-ah-jRT"/>
                         <outlet property="profileImageView" destination="KOu-Qb-TEz" id="BWx-AX-hHN"/>
                     </connections>

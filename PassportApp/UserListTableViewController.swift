@@ -36,7 +36,7 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
         super.viewWillAppear(animated)
         self.screenSaver.isHidden = false
         let indicator = startActivityIndicatorAnimation()
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) {
             self.usersTableView.reloadData()
             self.screenSaver.isHidden = true
             self.stopActivityIndicatorAnimation(indicator: indicator)
@@ -75,7 +75,7 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
         if self.passportApp.users?.count == 1 {
             return 1
         } else {
-            return (self.passportApp.users?[(self.passportApp.users?.count)! - 1].id)!
+            return (self.passportApp.users?[(self.passportApp.users?.count)! - 1].id)! + 1
         }
     }
     
@@ -84,7 +84,7 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
     func addNewProfile() {
         let newProfileController = storyboard?.instantiateViewController(withIdentifier: "DetailsProfileViewController") as! DetailsProfileViewController
         let newId = getNextIDNumber()
-        let newProfile = Profile(id: newId, name: nil, age: nil, sex: nil, hobbies: nil, newUser: true)
+        let newProfile = Profile(id: newId, name: nil, age: nil, sex: nil, hobbies: nil, newUser: true, imageUrl: nil)
         newProfileController.profile = newProfile
         self.navigationController?.pushViewController(newProfileController, animated: true)
     }

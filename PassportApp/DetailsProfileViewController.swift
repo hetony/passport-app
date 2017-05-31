@@ -24,6 +24,7 @@ class DetailsProfileViewController: UIViewController {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var genderSwitch: UISwitch!
     @IBOutlet weak var genderLabel: UILabel!
+    @IBOutlet weak var hobbiesTextView: UITextView!
     
     // MARK: - App Life Cycle
     override func viewDidLoad() {
@@ -59,13 +60,21 @@ class DetailsProfileViewController: UIViewController {
                     print("Could not store image")
                 } else {
                     let userData: [String: Any] = [
-                        "id": self.profile?.id ?? "UUID",   //TODO: get UUID
-                        "name": self.nameTextField.text ?? "[no-name]",
-                        "age": self.ageTextField.text ?? "[no-age]",
-                        "sex": self.genderSwitch.isOn,
-                        "imageUrl": self.firebaseApp.storageRef!.child((metadata!.path)!).description
+                        UserKeys.IDKey:       self.profile?.id!,
+                        UserKeys.NameKey:     self.nameTextField.text!,
+                        UserKeys.AgeKey:      Int(self.ageTextField.text!)!,
+                        UserKeys.SexKey:      self.genderSwitch.isOn,
+                        UserKeys.HobbiesKey:  self.hobbiesTextView.text!,
+                        UserKeys.ImageURLKey: self.firebaseApp.storageRef!.child((metadata!.path)!).description,
+                        UserKeys.NewUserKey:  false
                     ]
-                    self.firebaseApp.sendProfile(data: userData)
+                    
+                    if let _ = self.profile?.newUser {
+                        self.firebaseApp.sendProfile(data: userData)
+                    } else {
+                        self.firebaseApp.updateProfile(data: userData)
+                    }
+                    
                     self.navigationController?.popViewController(animated: true)
                 }
             })
@@ -76,14 +85,34 @@ class DetailsProfileViewController: UIViewController {
     }
     
     func showUserProfile() {
-        paintSexColor()
-        // TODO: use updateChildValues() instead of sending a new json
+        if profile?.sex == true {
+            self.view.backgroundColor = UIColor.blue
+            self.genderLabel.text = "MALE"
+            self.genderSwitch.isOn = true
+        } else {
+            self.view.backgroundColor = UIColor.green
+            self.genderLabel.text = "FEMALE"
+            self.genderSwitch.isOn = false
+        }
         
+        self.nameTextField.text = self.profile?.name
+        self.ageTextField.text = "\(self.profile!.age!)"
+        self.hobbiesTextView.text = self.profile?.hobbies
+        
+        let imageUrl = self.profile?.imageUrl
+        firebaseApp.setImageProfile(imageUrl: imageUrl!) { (image) in
+            DispatchQueue.main.async {
+                if image != nil {
+                    self.profileImageView.image = image as! UIImage
+                } else  {
+                   self.profileImageView.image = UIImage(named: "placeholder")
+                }
+            }
+        }
     }
 
     //MARK: - Secondary View Controller Functions
     func checkForNewProfile() {
-        //TODO: only call once, dont call in view will appear
         if let newUser = self.profile?.newUser, newUser == true {
             clearTextFields()
         } else {
@@ -92,33 +121,21 @@ class DetailsProfileViewController: UIViewController {
     }
     
     func validateFields() -> Bool {
-        if (self.profile?.id) != nil {
-            if !(self.ageTextField.text?.isEmpty)!, !(self.nameTextField.text?.isEmpty)!, !(self.genderLabel.text?.isEmpty)! {
-                return true
-            } else {
-                return false
-            }
+        if !(self.ageTextField.text?.isEmpty)!, !(self.nameTextField.text?.isEmpty)!, !(self.genderLabel.text?.isEmpty)!, !(self.hobbiesTextView.text.isEmpty) {
+            return true
         } else {
-            //Create new user profiles
-            return validateFields()
+            return false
         }
     }
     
     func clearTextFields() {
         self.ageTextField.text = ""
         self.nameTextField.text = ""
+        self.genderSwitch.isOn = true
+        self.view.backgroundColor = UIColor.blue
+        self.genderLabel.text = "MALE"
     }
     
-    func paintSexColor() {
-        profile?.sex = "male" 
-        if profile?.sex == "male" {
-            self.view.backgroundColor = UIColor.blue
-        } else {
-            self.view.backgroundColor = UIColor.green
-        }
-    }
-    
-
     
     // MARK: - IBActions
     @IBAction func switchPress(_ sender: UISwitch) {
@@ -152,7 +169,6 @@ extension DetailsProfileViewController: UIImagePickerControllerDelegate, UINavig
         if let photo = info[UIImagePickerControllerOriginalImage] as? UIImage, let photoData = UIImageJPEGRepresentation(photo, 0.8) {
             UserDefaults.standard.set(true, forKey: kSetProfilePicture)
             self.profileImageView.image = photo
-//            app.sendPhoto(photoData: photoData)
         } else {
             print("something went wrong")
         }
