@@ -15,11 +15,18 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
     var firebaseApp = FirebaseUserManager.sharedInstance
     var passportApp = PAData.sharedInstance
 
+    // MARK: - Properties
+    var temp: [Profile]?
+    
     // MARK: - IBOutlets
     @IBOutlet weak var usersTableView: UITableView!
     @IBOutlet weak var screenSaver: UIView!
     @IBOutlet weak var passportTitleLabel: UILabel!
+    @IBOutlet var searchView: UIView!
     
+    @IBOutlet weak var ascDescControl: UISegmentedControl!
+    @IBOutlet weak var nameAgeSegmentControl: UISegmentedControl!
+    @IBOutlet weak var genderSegementControll: UISegmentedControl!
     
     // MARK: - App Life Cycle
     override func viewDidLoad() {
@@ -114,8 +121,80 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
         self.navigationController?.pushViewController(newProfileController, animated: true)
     }
     
+    // MARK: - Search View
     func showFilterView() {
-        //TODO: Show overlay
+        searchView.center = self.view.center
+        self.view.addSubview(searchView)
+    }
+    
+    @IBAction func clearFilterButton(_ sender: UIButton) {
+        //TODO: clear all settings
+        self.searchView.removeFromSuperview()
+    }
+    
+    @IBAction func filterButton(_ sender: UIButton) {
+        //TODO: satisifes all filters
+        orderByNameAgeAscendingDescending()
+        orderByGender()
+        self.searchView.removeFromSuperview()
+    }
+    
+    @IBAction func closeFilterWindow(_ sender: UIButton) {
+        self.searchView.removeFromSuperview()
+    }
+    
+    
+    func orderByNameAgeAscendingDescending() {
+        switch (self.nameAgeSegmentControl.selectedSegmentIndex, self.ascDescControl.selectedSegmentIndex) {
+        case (0, 0): // (Name, ascending)
+            let tem = self.passportApp.users?.filter {
+                $0.sex! == true //male
+            }.sorted(by: { (a, b) -> Bool in
+                a.age! < b.age! //TODO: see what this is sorted by
+            })
+            
+            self.usersTableView.reloadData()
+            break
+        case (0, 1):
+            let tem = self.passportApp.users?.filter {
+                $0.sex == false //female
+            }.sorted(by: { (a, b) -> Bool in
+                a.age! > b.age!
+            })
+            self.usersTableView.reloadData()
+            break
+        case (1, 1):
+            let tem = self.passportApp.users?.sorted(by: { (a, b) -> Bool in
+                a.age! > b.age!
+            }).filter {
+                $0.sex == false //female
+            }
+            self.usersTableView.reloadData()
+            break
+        case (1, 0):
+            let tem = self.passportApp.users?.sorted(by: { (a, b) -> Bool in
+                a.age! > b.age!
+            }).filter {
+                $0.sex == false //female
+            }
+            self.usersTableView.reloadData()
+            break
+        default:
+            //todo:
+            break
+        }
+
+    }
+    
+    func orderByGender() {
+        switch self.genderSegementControll.selectedSegmentIndex {
+        case 0:
+            break
+        case 1:
+            break
+        default:
+            break
+        }
     }
     
     //MARK: - UITableViewDelegate DataSources

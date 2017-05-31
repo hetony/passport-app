@@ -89,31 +89,50 @@
                     </view>
                     <navigationItem key="navigationItem" id="jUo-jb-dDU"/>
                     <connections>
+                        <outlet property="ascDescControl" destination="Zjk-zr-X9c" id="5WY-bW-BqF"/>
+                        <outlet property="genderSegementControll" destination="3E7-Nt-LjW" id="yU6-Cr-jK1"/>
+                        <outlet property="maleFemaleSegmentControl" destination="3E7-Nt-LjW" id="Pye-C5-iK8"/>
+                        <outlet property="nameAgeSegmentControl" destination="rev-2u-fOf" id="rVh-nj-DKh"/>
                         <outlet property="passportTitleLabel" destination="a6S-kc-1Nw" id="gcs-Cx-NBC"/>
                         <outlet property="screenSaver" destination="sfR-ys-psV" id="zg7-dN-t6w"/>
+                        <outlet property="searchView" destination="0eV-WO-01s" id="pZv-dW-zQO"/>
                         <outlet property="usersTableView" destination="IoJ-QH-V9X" id="F1c-vg-1BU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UZg-78-yvO" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="0eV-WO-01s">
-                    <rect key="frame" x="0.0" y="0.0" width="239" height="200"/>
+                    <rect key="frame" x="0.0" y="0.0" width="371" height="157"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="USS-q0-OcW">
-                            <rect key="frame" x="8" y="162" width="223" height="30"/>
+                            <rect key="frame" x="8" y="119" width="355" height="30"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zWv-Yl-7B6">
-                                    <rect key="frame" x="0.0" y="0.0" width="107.5" height="30"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="173.5" height="30"/>
                                     <state key="normal" title="CLEAR"/>
+                                    <connections>
+                                        <action selector="clearFilterButton:" destination="Msm-jA-NAW" eventType="touchUpInside" id="mhM-LO-oUs"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o7F-wJ-7s1">
-                                    <rect key="frame" x="115.5" y="0.0" width="107.5" height="30"/>
+                                    <rect key="frame" x="181.5" y="0.0" width="173.5" height="30"/>
                                     <state key="normal" title="FILTER"/>
+                                    <connections>
+                                        <action selector="filterButton:" destination="Msm-jA-NAW" eventType="touchUpInside" id="5EI-ko-XuE"/>
+                                    </connections>
                                 </button>
                             </subviews>
                         </stackView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LN4-fJ-u7t">
+                            <rect key="frame" x="341" y="16" width="30" height="47"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                            <state key="normal" title="ⓧ"/>
+                            <connections>
+                                <action selector="closeFilterWindow:" destination="Msm-jA-NAW" eventType="touchUpInside" id="k7R-tk-mD7"/>
+                            </connections>
+                        </button>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pha-Cu-p49">
-                            <rect key="frame" x="38.5" y="68" width="162" height="64"/>
+                            <rect key="frame" x="104.5" y="46.5" width="162" height="64"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="aCA-ex-vmC">
                                     <rect key="frame" x="0.0" y="0.0" width="162" height="28"/>
@@ -134,7 +153,7 @@
                                         </segmentedControl>
                                     </subviews>
                                 </stackView>
-                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3E7-Nt-LjW">
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3E7-Nt-LjW" userLabel="Gender Segment Control">
                                     <rect key="frame" x="0.0" y="36" width="162" height="29"/>
                                     <segments>
                                         <segment title="Male"/>
@@ -151,6 +170,8 @@
                         <constraint firstItem="pha-Cu-p49" firstAttribute="centerX" secondItem="0eV-WO-01s" secondAttribute="centerX" id="U2B-o8-f4s"/>
                         <constraint firstAttribute="bottomMargin" secondItem="USS-q0-OcW" secondAttribute="bottom" id="VPc-so-wNZ"/>
                         <constraint firstItem="USS-q0-OcW" firstAttribute="leading" secondItem="0eV-WO-01s" secondAttribute="leadingMargin" id="Xxd-kS-uur"/>
+                        <constraint firstItem="LN4-fJ-u7t" firstAttribute="top" secondItem="0eV-WO-01s" secondAttribute="topMargin" constant="8" id="o6T-Ut-jjQ"/>
+                        <constraint firstItem="LN4-fJ-u7t" firstAttribute="trailing" secondItem="0eV-WO-01s" secondAttribute="trailingMargin" constant="8" id="wGg-5l-Zgz"/>
                     </constraints>
                 </view>
             </objects>
