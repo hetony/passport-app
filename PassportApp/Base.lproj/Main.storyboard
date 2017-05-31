@@ -24,7 +24,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fRI-p1-19O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1409" y="265"/>
+            <point key="canvasLocation" x="-1551" y="235"/>
         </scene>
         <!--User List Table View Controller-->
         <scene sceneID="tN5-QH-fer">
@@ -42,12 +42,28 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserTableViewCell" id="gvo-iK-dOn">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UserTableViewCell" textLabel="xOK-nX-ztu" detailTextLabel="pft-Li-U68" style="IBUITableViewCellStyleValue1" id="gvo-iK-dOn">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gvo-iK-dOn" id="ALt-gh-Q0i">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xOK-nX-ztu">
+                                                    <rect key="frame" x="15" y="12" width="33.5" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pft-Li-U68">
+                                                    <rect key="frame" x="296" y="12" width="44" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -56,42 +72,19 @@
                                     <outlet property="delegate" destination="Msm-jA-NAW" id="X7T-eJ-SQk"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sfR-ys-psV" userLabel="ScreenSaver">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Passport Challenge" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a6S-kc-1Nw">
-                                        <rect key="frame" x="0.0" y="72" width="375" height="286"/>
-                                        <fontDescription key="fontDescription" name="Kailasa-Bold" family="Kailasa" pointSize="45"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="a6S-kc-1Nw" secondAttribute="bottom" constant="245" id="QFu-VI-U0D"/>
-                                    <constraint firstItem="a6S-kc-1Nw" firstAttribute="top" secondItem="sfR-ys-psV" secondAttribute="top" constant="72" id="cjU-GF-Eha"/>
-                                    <constraint firstItem="a6S-kc-1Nw" firstAttribute="leading" secondItem="sfR-ys-psV" secondAttribute="leading" id="jJg-p1-aA9"/>
-                                    <constraint firstAttribute="trailing" secondItem="a6S-kc-1Nw" secondAttribute="trailing" id="uIi-ky-SWe"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="2Nb-HS-DMe" firstAttribute="top" secondItem="sfR-ys-psV" secondAttribute="bottom" id="7FB-U1-3d3"/>
                             <constraint firstItem="2Nb-HS-DMe" firstAttribute="top" secondItem="IoJ-QH-V9X" secondAttribute="bottom" id="9vP-8L-BcO"/>
-                            <constraint firstAttribute="trailing" secondItem="sfR-ys-psV" secondAttribute="trailing" id="Aqw-9D-DLK"/>
                             <constraint firstItem="IoJ-QH-V9X" firstAttribute="leading" secondItem="k9U-a1-olP" secondAttribute="leading" id="Cxo-B7-4CR"/>
                             <constraint firstItem="IoJ-QH-V9X" firstAttribute="top" secondItem="EqV-zf-rPb" secondAttribute="bottom" id="gld-oJ-6m4"/>
-                            <constraint firstItem="sfR-ys-psV" firstAttribute="leading" secondItem="k9U-a1-olP" secondAttribute="leading" id="kjY-4H-0tK"/>
                             <constraint firstAttribute="trailing" secondItem="IoJ-QH-V9X" secondAttribute="trailing" id="mEc-ef-mps"/>
-                            <constraint firstItem="sfR-ys-psV" firstAttribute="top" secondItem="EqV-zf-rPb" secondAttribute="bottom" id="pWH-um-3IQ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="jUo-jb-dDU"/>
                     <connections>
                         <outlet property="ascDescControl" destination="Zjk-zr-X9c" id="5WY-bW-BqF"/>
                         <outlet property="genderSegementControll" destination="3E7-Nt-LjW" id="yU6-Cr-jK1"/>
-                        <outlet property="maleFemaleSegmentControl" destination="3E7-Nt-LjW" id="Pye-C5-iK8"/>
                         <outlet property="nameAgeSegmentControl" destination="rev-2u-fOf" id="rVh-nj-DKh"/>
                         <outlet property="passportTitleLabel" destination="a6S-kc-1Nw" id="gcs-Cx-NBC"/>
                         <outlet property="screenSaver" destination="sfR-ys-psV" id="zg7-dN-t6w"/>
@@ -172,6 +165,25 @@
                         <constraint firstItem="USS-q0-OcW" firstAttribute="leading" secondItem="0eV-WO-01s" secondAttribute="leadingMargin" id="Xxd-kS-uur"/>
                         <constraint firstItem="LN4-fJ-u7t" firstAttribute="top" secondItem="0eV-WO-01s" secondAttribute="topMargin" constant="8" id="o6T-Ut-jjQ"/>
                         <constraint firstItem="LN4-fJ-u7t" firstAttribute="trailing" secondItem="0eV-WO-01s" secondAttribute="trailingMargin" constant="8" id="wGg-5l-Zgz"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" id="sfR-ys-psV" userLabel="ScreenSaver">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Passport Challenge" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a6S-kc-1Nw">
+                            <rect key="frame" x="0.0" y="72" width="375" height="286"/>
+                            <fontDescription key="fontDescription" name="Kailasa-Bold" family="Kailasa" pointSize="45"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="a6S-kc-1Nw" secondAttribute="bottom" constant="245" id="QFu-VI-U0D"/>
+                        <constraint firstItem="a6S-kc-1Nw" firstAttribute="top" secondItem="sfR-ys-psV" secondAttribute="top" constant="72" id="cjU-GF-Eha"/>
+                        <constraint firstItem="a6S-kc-1Nw" firstAttribute="leading" secondItem="sfR-ys-psV" secondAttribute="leading" id="jJg-p1-aA9"/>
+                        <constraint firstAttribute="trailing" secondItem="a6S-kc-1Nw" secondAttribute="trailing" id="uIi-ky-SWe"/>
                     </constraints>
                 </view>
             </objects>
@@ -270,7 +282,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rz0-3G-Nhu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="346" y="236"/>
+            <point key="canvasLocation" x="620" y="236"/>
         </scene>
     </scenes>
     <resources>

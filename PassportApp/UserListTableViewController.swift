@@ -67,17 +67,18 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
     
-    /* Use RegisterUser Observer*/
+    /* Firebase Observers*/
     func loadFirebaseData() {
         var updateUser: Profile?
         
+        //New User
         firebaseApp.registerUserAddedObserver { (dictionary, childKey) in
             let user = Profile.loadStudentFromDictionary(dictionary, childKey: childKey)
             self.passportApp.users?.append(user)
         }
         
+        //Updated User
         firebaseApp.registerUserUpdatedObserver { (dictionary) in
-            print("Update User")
             updateUser = Profile.loadStudentFromDictionary(dictionary, childKey: nil)
             self.replaceUser(updateUser!)
         }
@@ -91,7 +92,6 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
                 self.passportApp.users?[index!] = updatedUser
             }
         }
-        print(self.passportApp.users)
     }
     
     /* Set userID*/
@@ -135,7 +135,7 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
     @IBAction func filterButton(_ sender: UIButton) {
         //TODO: satisifes all filters
         orderByNameAgeAscendingDescending()
-        orderByGender()
+        //orderByGender()
         self.searchView.removeFromSuperview()
     }
     
@@ -146,44 +146,53 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     func orderByNameAgeAscendingDescending() {
         switch (self.nameAgeSegmentControl.selectedSegmentIndex, self.ascDescControl.selectedSegmentIndex) {
-        case (0, 0): // (Name, ascending)
-            let tem = self.passportApp.users?.filter {
-                $0.sex! == true //male
-            }.sorted(by: { (a, b) -> Bool in
-                a.age! < b.age! //TODO: see what this is sorted by
+            //NAME  = 0
+            //AGE   = 1
+            //ASC   = 0
+            //DESC  = 1
+            
+        case (0, 0): // (Name || Age, ascending || Desc)
+            let sortByName = self.passportApp.users?.sorted(by: { (a, b) -> Bool in
+                a.name! < b.name!
             })
             
-            self.usersTableView.reloadData()
+            self.temp = self.passportApp.users
+            self.passportApp.users?.removeAll(keepingCapacity: false)
+            self.passportApp.users = sortByName
             break
         case (0, 1):
-            let tem = self.passportApp.users?.filter {
-                $0.sex == false //female
-            }.sorted(by: { (a, b) -> Bool in
-                a.age! > b.age!
+            let sortByName = self.passportApp.users?.sorted(by: { (a, b) -> Bool in
+                a.name! > b.name!
             })
-            self.usersTableView.reloadData()
-            break
-        case (1, 1):
-            let tem = self.passportApp.users?.sorted(by: { (a, b) -> Bool in
-                a.age! > b.age!
-            }).filter {
-                $0.sex == false //female
-            }
-            self.usersTableView.reloadData()
+            
+            self.temp = self.passportApp.users
+            self.passportApp.users?.removeAll(keepingCapacity: false)
+            self.passportApp.users = sortByName
             break
         case (1, 0):
-            let tem = self.passportApp.users?.sorted(by: { (a, b) -> Bool in
+            let sortByName = self.passportApp.users?.sorted(by: { (a, b) -> Bool in
+                a.age! < b.age!
+            })
+            
+            self.temp = self.passportApp.users
+            self.passportApp.users?.removeAll(keepingCapacity: false)
+            self.passportApp.users = sortByName
+            break
+        case (1, 1):
+            let sortByName = self.passportApp.users?.sorted(by: { (a, b) -> Bool in
                 a.age! > b.age!
-            }).filter {
-                $0.sex == false //female
-            }
-            self.usersTableView.reloadData()
+            })
+            
+            self.temp = self.passportApp.users
+            self.passportApp.users?.removeAll(keepingCapacity: false)
+            self.passportApp.users = sortByName
             break
         default:
             //todo:
             break
         }
-
+        self.usersTableView.reloadData()
+        UserDefaults.standard.set(true, forKey: kDataFiltered)
     }
     
     func orderByGender() {
@@ -214,6 +223,7 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
         let cell = tableView.dequeueReusableCell(withIdentifier: "UserTableViewCell", for: indexPath)
         cell.textLabel?.text = passportApp.users![indexPath.row].name
         cell.detailTextLabel?.text = "\(passportApp.users![indexPath.row].age!)"
+
         return cell
     }
     
