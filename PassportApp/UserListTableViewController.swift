@@ -63,6 +63,23 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
             let user = Profile.loadStudentFromDictionary(dictionary)
             self.passportApp.users?.append(user)
         }
+        
+        firebaseApp.registerUserUpdatedObserver { (dictionary) in
+            let updateUser = Profile.loadStudentFromDictionary(dictionary)
+            
+            for var user in self.passportApp.users! {
+                //TODO:
+                //is actually no replacin the user in the array
+                // is replacin the top var 
+                
+                //TODO:
+                //rebase: the user id is always set to zero on the first 2 users
+                if user.id == updateUser.id {
+                    user = updateUser
+                }
+            }
+            print(self.passportApp.users)
+        }
     }
 
     
