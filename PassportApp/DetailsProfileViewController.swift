@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailsProfileViewController: UIViewController {
+class DetailsProfileViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: - Singleton property
     var firebaseApp = FirebaseUserManager.sharedInstance
@@ -31,13 +31,12 @@ class DetailsProfileViewController: UIViewController {
         super.viewDidLoad()
         setupNavBar()
         setImagePicker()
-        checkForNewProfile()
+        subscribeToKeyboardOffTap()
 
+        self.hobbiesTextView.delegate = self
+        checkForNewProfile()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
+
 
     // MARK: - Setup UI
     func setupNavBar() {
@@ -60,7 +59,7 @@ class DetailsProfileViewController: UIViewController {
                     print("Could not store image")
                 } else {
                     let userData: [String: Any] = [
-                        UserKeys.IDKey:       self.profile?.id!,
+                        UserKeys.IDKey:       self.profile?.id!, //Doesnt belong to the child nodes
                         UserKeys.NameKey:     self.nameTextField.text!,
                         UserKeys.AgeKey:      Int(self.ageTextField.text!)!,
                         UserKeys.SexKey:      self.genderSwitch.isOn,
@@ -69,13 +68,13 @@ class DetailsProfileViewController: UIViewController {
                         UserKeys.NewUserKey:  false
                     ]
                     
-                    if let _ = self.profile?.newUser {
-                        self.firebaseApp.sendProfile(data: userData)
+                    if let newUser = self.profile?.newUser, newUser == true {
+                        self.firebaseApp.sendProfileWith(data: userData)
                     } else {
-                        self.firebaseApp.updateProfile(data: userData)
+                        self.firebaseApp.updateProfile(data: userData, withAutoId: self.profile?.pushId)
                     }
-                    
                     self.navigationController?.popViewController(animated: true)
+
                 }
             })
         } else {
@@ -85,6 +84,10 @@ class DetailsProfileViewController: UIViewController {
     }
     
     func showUserProfile() {
+        self.nameTextField.isEnabled = false
+        self.ageTextField.isEnabled = false
+        self.profileImageView.isUserInteractionEnabled = false
+        
         if profile?.sex == true {
             self.view.backgroundColor = UIColor.blue
             self.genderLabel.text = "MALE"
@@ -132,8 +135,8 @@ class DetailsProfileViewController: UIViewController {
         self.ageTextField.text = ""
         self.nameTextField.text = ""
         self.genderSwitch.isOn = true
-        self.view.backgroundColor = UIColor.blue
-        self.genderLabel.text = "MALE"
+        self.view.backgroundColor = UIColor.white
+        self.genderLabel.text = "Gender Switcher"
     }
     
     
@@ -152,6 +155,7 @@ class DetailsProfileViewController: UIViewController {
 
 }
 
+// MARK: -
 extension DetailsProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func pickAnImage() {
@@ -177,5 +181,26 @@ extension DetailsProfileViewController: UIImagePickerControllerDelegate, UINavig
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: -
+extension DetailsProfileViewController {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        return true
+    }
+}
+
+// MARK: -
+extension DetailsProfileViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if self.hobbiesTextView.isFirstResponder {
+            self.view.frame.origin.y = 190 * -1
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        self.view.frame.origin.y = 65
     }
 }

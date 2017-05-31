@@ -34,18 +34,9 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.screenSaver.isHidden = false
-        let indicator = startActivityIndicatorAnimation()
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
-            self.usersTableView.reloadData()
-            self.screenSaver.isHidden = true
-            self.stopActivityIndicatorAnimation(indicator: indicator)
-        }
+        performAnimationAndDataLoad()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-    }
 
     // MARK: - UserListTable View Controller Functions
     func setupNavBar() {
@@ -58,36 +49,57 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
         self.navigationItem.rightBarButtonItem = addProfile
     }
     
+    /*Loading Acitvity*/
+    func performAnimationAndDataLoad() {
+        self.screenSaver.isHidden = false
+        let indicator = startActivityIndicatorAnimation()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+            self.usersTableView.reloadData()
+            self.screenSaver.isHidden = true
+            self.stopActivityIndicatorAnimation(indicator: indicator)
+        }
+    }
+    
+    /* Use RegisterUser Observer*/
     func loadFirebaseData() {
-        firebaseApp.registerUserAddedObserver { (dictionary) in
-            let user = Profile.loadStudentFromDictionary(dictionary)
+        var updateUser: Profile?
+        
+        firebaseApp.registerUserAddedObserver { (dictionary, childKey) in
+            let user = Profile.loadStudentFromDictionary(dictionary, childKey: childKey)
             self.passportApp.users?.append(user)
         }
         
         firebaseApp.registerUserUpdatedObserver { (dictionary) in
-            let updateUser = Profile.loadStudentFromDictionary(dictionary)
-            
-            var index = self.passportApp.users?.index(where: { (user) -> Bool in
-                user.id == updateUser.id
-            })
-            
-            self.passportApp.users?[index!] = updateUser
-            print(self.passportApp.users)
-            
+            print("Update User")
+            updateUser = Profile.loadStudentFromDictionary(dictionary, childKey: nil)
+            self.replaceUser(updateUser!)
         }
     }
 
+    /* Replace the updateUser in the passportApp user by id*/
+    func replaceUser(_ updatedUser: Profile) {
+        for user in passportApp.users! {
+            if updatedUser == user {
+                let index = passportApp.users?.index(of: user)
+                print(index)
+            }
+        }
+    }
     
+    /* Set userID*/
     func getNextIDNumber() -> Int {
-        //Assuming that there is a full array an int value will be retrieve
-        if self.passportApp.users?.count == 0 {
+        guard let arrCount = self.passportApp.users?.count else {
             return 0
         }
         
-        if self.passportApp.users?.count == 1 {
+        if arrCount - 1 == 0 {
+            return 0
+        }
+        
+        if arrCount == 1 {
             return 1
         } else {
-            return ((self.passportApp.users?.count)! + 1)
+            return (arrCount + 1)
         }
     }
     
@@ -96,7 +108,7 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
     func addNewProfile() {
         let newProfileController = storyboard?.instantiateViewController(withIdentifier: "DetailsProfileViewController") as! DetailsProfileViewController
         let newId = getNextIDNumber()
-        let newProfile = Profile(id: newId, name: nil, age: nil, sex: nil, hobbies: nil, newUser: true, imageUrl: nil)
+        let newProfile = Profile(id: newId, name: nil, age: nil, sex: nil, hobbies: nil, newUser: true, imageUrl: nil, pushId: nil)
         newProfileController.profile = newProfile
         self.navigationController?.pushViewController(newProfileController, animated: true)
     }
@@ -120,14 +132,8 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UserTableViewCell", for: indexPath)
-        
-        //FIXME: checking for empty array
-        // this is caught when it first retrieves DB with no users in the introViewController
-        if passportApp.users != nil {
-            cell.textLabel?.text = passportApp.users![indexPath.row].name
-            cell.detailTextLabel?.text = "\(passportApp.users![indexPath.row].age!)"
-        }
-        
+        cell.textLabel?.text = passportApp.users![indexPath.row].name
+        cell.detailTextLabel?.text = "\(passportApp.users![indexPath.row].age!)"
         return cell
     }
     

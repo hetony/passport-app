@@ -19,7 +19,7 @@ class FirebaseUserManager: NSObject {
     var profilesSnapshortArray: [FIRDataSnapshot]! = []
     var storageRef: FIRStorageReference!
 
-    // MARK: - Firebase
+    // MARK: - Firebase Ref Config
     func configureDatabase() {
         ref = FIRDatabase.database().reference()
     }
@@ -28,16 +28,21 @@ class FirebaseUserManager: NSObject {
         storageRef = FIRStorage.storage().reference()
     }
     
-    func sendProfile(data: [String: Any]) {
+    // MARK: - Send, Update, Remove Data
+    func sendProfileWith(data: [String: Any]) {
         ref.child(Path.Profiles).childByAutoId().setValue(data)
     }
     
-    func updateProfile(data: [String: Any]) {
-        ref.child(Path.Profiles).updateChildValues(data) { (error, database) in
-            //TODO: catch exception
+    func updateProfile(data: [String: Any], withAutoId pushId: String?) {
+        ref.child(Path.Profiles).child(pushId!).updateChildValues(data) { (error, database) in
+            guard error == nil else {
+                print("There was an error updating the profile: \(error)")
+                return
+            }
         }
     }
     
+    /* Dowloads the image from the reference path*/
     func setImageProfile(imageUrl: String, completionHandler: @escaping(_ imageData: AnyObject?) -> Void) {
         FIRStorage.storage().reference(forURL: imageUrl).data(withMaxSize: INT64_MAX){ (data, error) in
             
@@ -45,23 +50,28 @@ class FirebaseUserManager: NSObject {
             completionHandler(imageData)
         }
     }
-    func registerUserAddedObserver(withCompletionHandler: @escaping(_ dictionary: [String: Any]) -> Void) {
-        //New user added
+    
+    // MARK: - Observers
+    
+    /* NewUser observer */
+    func registerUserAddedObserver(withCompletionHandler: @escaping(_ dictionary: [String: Any], _ withKey: String) -> Void) {
         _refHandle = ref.child(Path.Profiles).observe(.childAdded, with: { (snapshot) in
             let addedUser = snapshot.value as! [String: Any]
-            withCompletionHandler(addedUser)
+            withCompletionHandler(addedUser, snapshot.key)
         })
     }
     
+    /* UpdateUser Observer */
+    //FIXME: Missing implementation, not required.
     func registerUserUpdatedObserver(withCompletionHandler: @escaping(_ dictionary: [String: Any]) -> Void)  {
-        //User updated
         _refHandle = ref.child(Path.Profiles).observe(.childChanged, with: { (updateSnapshot) in
-            //TODO: look for key matching IDs
             let updatedUser = updateSnapshot.value as! [String: Any]
             withCompletionHandler(updatedUser)
         })
     }
     
+    /* RemoveUser Observer*/
+    //FIXME: Missing implementation, not required.
     func registerUserRemoveObserver(withCompletionHandler: @escaping(_ dictionary: [String: Any]) -> Void){
         _refHandle = ref.child(Path.Profiles).observe(.childRemoved, with: { (snapshot) in
             let removedUser = snapshot.value as! [String: Any]
@@ -69,37 +79,12 @@ class FirebaseUserManager: NSObject {
         })
     }
     
+    /* Remove Firebase Observer with handle*/
     func removeFirebaseObserver() {
         ref.removeObserver(withHandle: _refHandle)
     }
     
-    func registerAnyChangeObserver() {
-//        //Any data changes at a location or, recursively, at any child node.
-//        if !(UserDefaults.standard.bool(forKey: kIsAppFirstLaunch)) {
-//            _refHandle = ref.child(Path.Profiles).observe(.value, with: { (snapshot) in
-//                print(snapshot.value as Any)
-//                if !snapshot.exists() {
-//                    //self.data.users = []
-//                    UserDefaults.standard.set(true, forKey: kIsAppFirstLaunch)
-//                } else {
-//                    self.profilesSnapshortArray.removeAll()
-//                    self.profilesSnapshortArray.append(snapshot)
-//                    let count = snapshot.childrenCount
-//                    var userSnpshot = self.profilesSnapshortArray[0]
-//                    let user = userSnpshot.value as! [String: Any]
-//                    let userName = user["name"] ?? "no-name"
-//                    print(userName)
-//                    for student in self.profilesSnapshortArray {
-//                        let one = Profile.loadStudentFromDictionary(student.value as! [String: Any])
-//                        print(one)
-//                    }
-//                }
-//            })
-//        } else {
-//            print("App already launched")
-//        }
-    }
-    
+    /* Send image with user ID base on Ints */
     func sendSampleImage(profileImage: UIImage?, userId: Int, completionHandler: @escaping (_ metadata: FIRStorageMetadata?, _ success: Bool) -> Void) {
         if let image = profileImage, let photoData = UIImageJPEGRepresentation(image, 0.8) {
             let imagePath = "profile_photos/\(userId)"
@@ -117,8 +102,7 @@ class FirebaseUserManager: NSObject {
                     completionHandler(nil, false)
                     return
                 }
-                // use sendMessage to add imageURL to database
-                //self.sendProfile(data: ["imageUrl": self.storageRef!.child((metadata?.path)!).description])
+
                 completionHandler(metadata, true)
             }
         } else {
