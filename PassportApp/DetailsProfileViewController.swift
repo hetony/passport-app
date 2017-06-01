@@ -7,9 +7,9 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
-
-class DetailsProfileViewController: UIViewController, UITextFieldDelegate {
+class DetailsProfileViewController: UIViewController, UITextFieldDelegate, NVActivityIndicatorViewable {
 
     // MARK: - Singleton property
     var firebaseApp = FirebaseUserManager.sharedInstance
@@ -33,8 +33,6 @@ class DetailsProfileViewController: UIViewController, UITextFieldDelegate {
         setupNavBar()
         setImagePicker()
         subscribeToKeyboardOffTap()
-
-//        self.hobbiesTextView.delegate = self
         checkForNewProfile()
     }
 
@@ -52,9 +50,22 @@ class DetailsProfileViewController: UIViewController, UITextFieldDelegate {
         profileImageView.addGestureRecognizer(tapGesture)
     }
     
-    //MARK: - Primary View Controller Functions
+    // MARK: - IBActions
+    @IBAction func switchPress(_ sender: UISwitch) {
+        if genderSwitch.isOn {
+            self.view.backgroundColor = UIColor.blue
+            self.genderLabel.textColor = UIColor.white
+            self.genderLabel.text = "MALE"
+        } else {
+            self.view.backgroundColor = UIColor.green
+            self.genderLabel.textColor = UIColor.black
+            self.genderLabel.text = "FEMALE"
+        }
+    }
+    
     func saveProfileInfo() {
-        let indicator = startActivityIndicatorAnimation()
+        let size = CGSize(width: 40, height: 40)
+        startAnimating(size, message: "Loading")
         if validateFields() {   // Check for all fields completed
             firebaseApp.sendSampleImage(profileImage: self.profileImageView.image, userId: (self.profile?.id)!, completionHandler: { (metadata, success) in
                 if !success {   // Check for image place in Storage
@@ -70,7 +81,7 @@ class DetailsProfileViewController: UIViewController, UITextFieldDelegate {
                         UserKeys.NewUserKey:  false
                     ]
                     
-                    self.sendToFirebase(userData, indicator)
+                    self.sendToFirebase(userData)
                 }
             })
         } else {
@@ -79,14 +90,17 @@ class DetailsProfileViewController: UIViewController, UITextFieldDelegate {
         //TODO: send and array to play with it
     }
     
-    func sendToFirebase(_ userData: [String: Any], _ indicator: UIActivityIndicatorView) {
+    //MARK: - Primary View Controller Functions
+
+    func sendToFirebase(_ userData: [String: Any]) {
         if let newUser = self.profile?.newUser, newUser == true {
             self.firebaseApp.sendProfileWith(data: userData, withCompletionHandler: { (success) in
                 DispatchQueue.main.async {
                     if !success {
+                        self.stopAnimating()
                         self.displayAlertWithError(message: "Error saving new user")
                     } else {
-                        self.stopActivityIndicatorAnimation(indicator: indicator)
+                        self.stopAnimating()
                         self.navigationController?.popViewController(animated: true)
                     }
                 }
@@ -95,10 +109,10 @@ class DetailsProfileViewController: UIViewController, UITextFieldDelegate {
             self.firebaseApp.updateProfile(data: userData, withAutoId: self.profile?.pushId, withCompletionHandler: { (success) in
                 DispatchQueue.main.async {
                     if !success {
-                        self.stopActivityIndicatorAnimation(indicator: indicator)
+                        self.stopAnimating()
                         self.displayAlertWithError(message: "Error updating the profile")
                     } else {
-                        self.stopActivityIndicatorAnimation(indicator: indicator)
+                        self.stopAnimating()
                         self.navigationController?.popViewController(animated: true)
                     }
                 }
@@ -131,12 +145,12 @@ class DetailsProfileViewController: UIViewController, UITextFieldDelegate {
                 if image != nil {
                     self.profileImageView.image = image as! UIImage
                 } else  {
-                   self.profileImageView.image = UIImage(named: "placeholder")
+                    self.profileImageView.image = UIImage(named: "placeholder")
                 }
             }
         }
     }
-
+    
     //MARK: - Secondary View Controller Functions
     func checkForNewProfile() {
         if let newUser = self.profile?.newUser, newUser == true {
@@ -162,19 +176,6 @@ class DetailsProfileViewController: UIViewController, UITextFieldDelegate {
         self.genderLabel.text = "Gender Switcher"
     }
     
-    
-    // MARK: - IBActions
-    @IBAction func switchPress(_ sender: UISwitch) {
-        if genderSwitch.isOn {
-            self.view.backgroundColor = UIColor.blue
-            self.genderLabel.textColor = UIColor.white
-            self.genderLabel.text = "MALE"
-        } else {
-            self.view.backgroundColor = UIColor.green
-            self.genderLabel.textColor = UIColor.black
-            self.genderLabel.text = "FEMALE"
-        }
-    }
 
 }
 

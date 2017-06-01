@@ -13,4 +13,7 @@ target 'PassportApp' do
   # Keyboard
   pod 'IQKeyboardManagerSwift'
 
+  # UIBlocker
+  pod 'NVActivityIndicatorView'
+
 end

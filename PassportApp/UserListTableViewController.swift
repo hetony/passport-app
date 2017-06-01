@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import NVActivityIndicatorView
 
 enum Gender: Int {
     case Male = 0, Female
@@ -25,7 +26,7 @@ enum Param: Int {
     case Name = 0, Age
 }
 
-class UserListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class UserListTableViewController: UIViewController, NVActivityIndicatorViewable, UITableViewDelegate, UITableViewDataSource {
 
     // MARK: Singleton
     var firebaseApp = FirebaseUserManager.sharedInstance
@@ -71,10 +72,11 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     /*Loading Activity*/
     func performAnimationAndDataLoad() {
-        let indicator = startActivityIndicatorAnimation()
+        let size = CGSize(width: 40, height: 40)
+        startAnimating(size, message: "Loading")
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
             self.usersTableView.reloadData()
-            self.stopActivityIndicatorAnimation(indicator: indicator)
+            self.stopAnimating()
         }
     }
     
@@ -117,6 +119,7 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
                 let index = passportApp.users?.index(of: user)
                 self.passportApp.users?.remove(at: index!)
                 DispatchQueue.main.async {
+                    //Update Table in Main Queue, due to visible changes
                     self.usersTableView.reloadData()
                 }
             }
@@ -166,17 +169,17 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     @IBAction func filterButton(_ sender: UIButton) {
-        // Keep a original copy
+        
         if !UserDefaults.standard.bool(forKey: kFirstSortNOTDone) {
+            // Keep a original copy of DB, in case of sorting to restore as default
             self.original = self.passportApp.users
         } else {
-            //Once it has been filtered first time keep loading the original for future ref
+            // Use original copy for the next filterings
             self.passportApp.users = self.original
         }
         
-        
         // Sort base on params
-        orderByNameAgeAscendingDescending()
+        filterUsers()
         
         // Dismiss View
         self.searchView.removeFromSuperview()
@@ -187,12 +190,12 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     
-    func orderByNameAgeAscendingDescending() {
+    func filterUsers() {
         /*
          0. A copy from original was ma in filterButton(_:)
-         1. Assign the sorted or filtere to a temp
+         1. Assign the sorted or filtere to a temp var
          2. Remove items from singleton, not keeping the capacity
-         3. Fill sIngletong with temp
+         3. Fill sIngletong with temp, if new filters
          */
         
         var test: Gender
@@ -317,6 +320,7 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
         if let count = self.passportApp.users?.count {
             return count
         } else {
+            // When no users had been saved
             return 0
         }
     }
