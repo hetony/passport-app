@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class DetailsProfileViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: - Singleton property
@@ -53,6 +54,7 @@ class DetailsProfileViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: - Primary View Controller Functions
     func saveProfileInfo() {
+        let indicator = startActivityIndicatorAnimation()
         if validateFields() {   // Check for all fields completed
             firebaseApp.sendSampleImage(profileImage: self.profileImageView.image, userId: (self.profile?.id)!, completionHandler: { (metadata, success) in
                 if !success {   // Check for image place in Storage
@@ -68,20 +70,40 @@ class DetailsProfileViewController: UIViewController, UITextFieldDelegate {
                         UserKeys.NewUserKey:  false
                     ]
                     
-                    if let newUser = self.profile?.newUser, newUser == true {
-                        self.firebaseApp.sendProfileWith(data: userData)
-                    } else {
-                        self.firebaseApp.updateProfile(data: userData, withAutoId: self.profile?.pushId)
-                    }
-                    DispatchQueue.main.async {
-                        self.navigationController?.popViewController(animated: true)
-                    }
+                    self.sendToFirebase(userData, indicator)
                 }
             })
         } else {
             displayAlertWithError(message: "Please fill up all the fields")
         }
         //TODO: send and array to play with it
+    }
+    
+    func sendToFirebase(_ userData: [String: Any], _ indicator: UIActivityIndicatorView) {
+        if let newUser = self.profile?.newUser, newUser == true {
+            self.firebaseApp.sendProfileWith(data: userData, withCompletionHandler: { (success) in
+                DispatchQueue.main.async {
+                    if !success {
+                        self.displayAlertWithError(message: "Error saving new user")
+                    } else {
+                        self.stopActivityIndicatorAnimation(indicator: indicator)
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }
+            })
+        } else {
+            self.firebaseApp.updateProfile(data: userData, withAutoId: self.profile?.pushId, withCompletionHandler: { (success) in
+                DispatchQueue.main.async {
+                    if !success {
+                        self.stopActivityIndicatorAnimation(indicator: indicator)
+                        self.displayAlertWithError(message: "Error updating the profile")
+                    } else {
+                        self.stopActivityIndicatorAnimation(indicator: indicator)
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }
+            })
+        }
     }
     
     func showUserProfile() {

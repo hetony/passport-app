@@ -32,8 +32,14 @@ class FirebaseUserManager: NSObject {
     
     // MARK: - Send, Update, Remove Data
     /* Sends JSON data to 'profiles' node*/
-    func sendProfileWith(data: [String: Any]) {
-        ref.child(Path.Profiles).childByAutoId().setValue(data)
+    func sendProfileWith(data: [String: Any], withCompletionHandler: @escaping(_ success: Bool) -> Void) {
+        ref.child(Path.Profiles).childByAutoId().setValue(data) { (error, ref) in
+            guard error == nil else {
+                withCompletionHandler(false)
+                return
+            }
+            withCompletionHandler(true)
+        }
     }
     
     func removeProfileWith(_ pushId: String, withCompletionHandler: @escaping(_ success: Bool) -> Void) {
@@ -47,12 +53,13 @@ class FirebaseUserManager: NSObject {
     }
     
     /* Updates the user porfile using the stored pushId from previous call*/
-    func updateProfile(data: [String: Any], withAutoId pushId: String?) {
+    func updateProfile(data: [String: Any], withAutoId pushId: String?, withCompletionHandler: @escaping(_ success: Bool) -> Void) {
         ref.child(Path.Profiles).child(pushId!).updateChildValues(data) { (error, database) in
             guard error == nil else {
-                print("There was an error updating the profile: \(error)")
+                withCompletionHandler(false)
                 return
             }
+            withCompletionHandler(true)
         }
     }
     

@@ -86,8 +86,6 @@
                         <outlet property="ascDescControl" destination="Zjk-zr-X9c" id="5WY-bW-BqF"/>
                         <outlet property="genderSegementControll" destination="3E7-Nt-LjW" id="yU6-Cr-jK1"/>
                         <outlet property="nameAgeSegmentControl" destination="rev-2u-fOf" id="rVh-nj-DKh"/>
-                        <outlet property="passportTitleLabel" destination="a6S-kc-1Nw" id="gcs-Cx-NBC"/>
-                        <outlet property="screenSaver" destination="sfR-ys-psV" id="zg7-dN-t6w"/>
                         <outlet property="searchView" destination="0eV-WO-01s" id="pZv-dW-zQO"/>
                         <outlet property="usersTableView" destination="IoJ-QH-V9X" id="F1c-vg-1BU"/>
                     </connections>
@@ -165,25 +163,6 @@
                         <constraint firstItem="USS-q0-OcW" firstAttribute="leading" secondItem="0eV-WO-01s" secondAttribute="leadingMargin" id="Xxd-kS-uur"/>
                         <constraint firstItem="LN4-fJ-u7t" firstAttribute="top" secondItem="0eV-WO-01s" secondAttribute="topMargin" constant="8" id="o6T-Ut-jjQ"/>
                         <constraint firstItem="LN4-fJ-u7t" firstAttribute="trailing" secondItem="0eV-WO-01s" secondAttribute="trailingMargin" constant="8" id="wGg-5l-Zgz"/>
-                    </constraints>
-                </view>
-                <view contentMode="scaleToFill" id="sfR-ys-psV" userLabel="ScreenSaver">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Passport Challenge" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a6S-kc-1Nw">
-                            <rect key="frame" x="0.0" y="72" width="375" height="286"/>
-                            <fontDescription key="fontDescription" name="Kailasa-Bold" family="Kailasa" pointSize="45"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="bottom" secondItem="a6S-kc-1Nw" secondAttribute="bottom" constant="245" id="QFu-VI-U0D"/>
-                        <constraint firstItem="a6S-kc-1Nw" firstAttribute="top" secondItem="sfR-ys-psV" secondAttribute="top" constant="72" id="cjU-GF-Eha"/>
-                        <constraint firstItem="a6S-kc-1Nw" firstAttribute="leading" secondItem="sfR-ys-psV" secondAttribute="leading" id="jJg-p1-aA9"/>
-                        <constraint firstAttribute="trailing" secondItem="a6S-kc-1Nw" secondAttribute="trailing" id="uIi-ky-SWe"/>
                     </constraints>
                 </view>
             </objects>

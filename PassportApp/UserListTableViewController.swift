@@ -36,8 +36,6 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     // MARK: - IBOutlets
     @IBOutlet weak var usersTableView: UITableView!
-    @IBOutlet weak var screenSaver: UIView!
-    @IBOutlet weak var passportTitleLabel: UILabel!
     @IBOutlet var searchView: UIView!
     
     @IBOutlet weak var ascDescControl: UISegmentedControl!
@@ -73,11 +71,9 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     /*Loading Activity*/
     func performAnimationAndDataLoad() {
-        self.screenSaver.isHidden = false
         let indicator = startActivityIndicatorAnimation()
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
             self.usersTableView.reloadData()
-            self.screenSaver.isHidden = true
             self.stopActivityIndicatorAnimation(indicator: indicator)
         }
     }
