@@ -6,6 +6,8 @@
 //  Copyright © 2017 Idelfonso Gutierrez Jr. All rights reserved.
 //
 
+//TODO: Use completion blocks for new, update, and remove childs to retrieve any errors and maybe let the user know bad connection
+
 import UIKit
 import Firebase
 
@@ -29,10 +31,22 @@ class FirebaseUserManager: NSObject {
     }
     
     // MARK: - Send, Update, Remove Data
+    /* Sends JSON data to 'profiles' node*/
     func sendProfileWith(data: [String: Any]) {
         ref.child(Path.Profiles).childByAutoId().setValue(data)
     }
     
+    func removeProfileWith(_ pushId: String, withCompletionHandler: @escaping(_ success: Bool) -> Void) {
+        ref.child(Path.Profiles).child(pushId).removeValue { (error, firebaseRed) in
+            guard error == nil else {
+                withCompletionHandler(false)
+                return
+            }
+            withCompletionHandler(true)
+        }
+    }
+    
+    /* Updates the user porfile using the stored pushId from previous call*/
     func updateProfile(data: [String: Any], withAutoId pushId: String?) {
         ref.child(Path.Profiles).child(pushId!).updateChildValues(data) { (error, database) in
             guard error == nil else {
@@ -60,7 +74,8 @@ class FirebaseUserManager: NSObject {
          */
         _refHandle = ref.child(Path.Profiles).observe(.childAdded, with: { (snapshot) in
             let addedUser = snapshot.value as! [String: Any]
-            withCompletionHandler(addedUser, snapshot.key)
+            let childKey = snapshot.key
+            withCompletionHandler(addedUser, childKey)
         })
     }
     
@@ -75,10 +90,11 @@ class FirebaseUserManager: NSObject {
     
     /* RemoveUser Observer*/
     //FIXME: Missing implementation, not required.
-    func registerUserRemoveObserver(withCompletionHandler: @escaping(_ dictionary: [String: Any]) -> Void){
+    func registerUserRemoveObserver(withCompletionHandler: @escaping(_ dictionary: [String: Any], _ withKey: String) -> Void){
         _refHandle = ref.child(Path.Profiles).observe(.childRemoved, with: { (snapshot) in
             let removedUser = snapshot.value as! [String: Any]
-            withCompletionHandler(removedUser)
+            let childKey = snapshot.key
+            withCompletionHandler(removedUser, childKey)
         })
     }
     

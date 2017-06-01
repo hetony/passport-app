@@ -59,7 +59,6 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
         super.viewWillAppear(animated)
         performAnimationAndDataLoad()
     }
-    
 
     // MARK: - UserListTable View Controller Functions
     func setupNavBar() {
@@ -72,7 +71,7 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
         self.navigationItem.rightBarButtonItem = addProfile
     }
     
-    /*Loading Acitvity*/
+    /*Loading Activity*/
     func performAnimationAndDataLoad() {
         self.screenSaver.isHidden = false
         let indicator = startActivityIndicatorAnimation()
@@ -85,7 +84,7 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     /* Firebase Observers*/
     func loadFirebaseData() {
-        var updateUser: Profile?
+        //var updateUser: Profile? TEST
         
         //New User
         firebaseApp.registerUserAddedObserver { (dictionary, childKey) in
@@ -95,8 +94,14 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
         
         //Updated User
         firebaseApp.registerUserUpdatedObserver { (dictionary) in
-            updateUser = Profile.loadStudentFromDictionary(dictionary, childKey: nil)
-            self.replaceUser(updateUser!)
+            var updateUser = Profile.loadStudentFromDictionary(dictionary, childKey: nil)
+            self.replaceUser(updateUser)
+        }
+        
+        //Removed User
+        firebaseApp.registerUserRemoveObserver { (dictionary, childKey) in
+            let removedUser = Profile.loadStudentFromDictionary(dictionary, childKey: nil)
+            self.removeUser(removedUser)
         }
     }
 
@@ -106,6 +111,18 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
             if updatedUser == user {
                 let index = passportApp.users?.index(of: user)
                 self.passportApp.users?[index!] = updatedUser
+            }
+        }
+    }
+    
+    func removeUser(_ removedUser: Profile) {
+        for user in passportApp.users! {
+            if user == removedUser {
+                let index = passportApp.users?.index(of: user)
+                self.passportApp.users?.remove(at: index!)
+                DispatchQueue.main.async {
+                    self.usersTableView.reloadData()
+                }
             }
         }
     }
@@ -321,4 +338,31 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
         detailsController.profile = self.passportApp.users?[indexPath.row]
         self.navigationController?.pushViewController(detailsController, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        /*Delete Style*/
+        if editingStyle == .delete {
+            let deletedUser = passportApp.users?[indexPath.row]
+            firebaseApp.removeProfileWith((deletedUser?.pushId)!, withCompletionHandler: { (success) in
+                DispatchQueue.main.async {
+                    if !success {
+                        self.displayAlertWithError(message: "Error Deleting User")
+                    } else {
+                        for user in self.passportApp.users! {
+                            if user == deletedUser {
+                                let index = self.passportApp.users?.index(of: user)
+                                self.passportApp.users?.remove(at: index!)
+                            }
+                        }
+                    }
+                    
+                }
+            })
+        }
+    }
+    
 }
