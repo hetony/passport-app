@@ -33,7 +33,7 @@ class DetailsProfileViewController: UIViewController, UITextFieldDelegate {
         setImagePicker()
         subscribeToKeyboardOffTap()
 
-        self.hobbiesTextView.delegate = self
+//        self.hobbiesTextView.delegate = self
         checkForNewProfile()
     }
 
@@ -190,18 +190,5 @@ extension DetailsProfileViewController {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.endEditing(true)
         return true
-    }
-}
-
-// MARK: -
-extension DetailsProfileViewController: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if self.hobbiesTextView.isFirstResponder {
-            self.view.frame.origin.y = 190 * -1
-        }
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        self.view.frame.origin.y = 65
     }
 }

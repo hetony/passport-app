@@ -10,4 +10,7 @@ target 'PassportApp' do
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
 
+  # Keyboard
+  pod 'IQKeyboardManagerSwift'
+
 end
