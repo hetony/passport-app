@@ -49,12 +49,11 @@ class FirebaseUserManager: NSObject {
             }
             
             // Delete the profile image
-            self.removeImageProfileFromStorage(deletedUser.id!)
+            self.removeImageProfileFromStorage(deletedUser.name!)
             withCompletionHandler(true)
         }
     }
     
-    /* Updates the user porfile using the stored pushId from previous call*/
     func updateProfile(data: [String: Any], withAutoId pushId: String?, withCompletionHandler: @escaping(_ success: Bool) -> Void) {
         ref.child(Path.Profiles).child(pushId!).updateChildValues(data) { (error, database) in
             guard error == nil else {
@@ -66,16 +65,40 @@ class FirebaseUserManager: NSObject {
     }
     
     /* Dowloads the image from the reference path*/
-    func setImageProfile(imageUrl: String, completionHandler: @escaping(_ imageData: AnyObject?) -> Void) {
-        FIRStorage.storage().reference(forURL: imageUrl).data(withMaxSize: INT64_MAX){ (data, error) in
+    func downloadImageProfile(userName: String, completionHandler: @escaping(_ imageData: AnyObject?) -> Void) {
+       storageRef.child(Path.PhotoProfiles).child(userName).data(withMaxSize: INT64_MAX){ (data, error) in
             
             let imageData = UIImage.init(data: data!, scale: 50)
             completionHandler(imageData)
         }
     }
     
-    func removeImageProfileFromStorage(_ userId: Int) {
-        storageRef.child("\(userId)").delete { (error) in
+    func sendSampleImage(profileImage: UIImage?, profileName: String, completionHandler: @escaping (_ metadata: FIRStorageMetadata?, _ success: Bool) -> Void) {
+        if let image = profileImage, let photoData = UIImageJPEGRepresentation(image, 0.8) {
+            let metadata = FIRStorageMetadata()
+            metadata.contentType = "image/jpeg"
+            
+            storageRef.child(Path.PhotoProfiles).child(profileName).put(photoData, metadata: metadata) { (metadata, error) in
+                if let error = error {
+                    print("Error uploading: \(error)")
+                    completionHandler(nil, false)
+                    return
+                }
+                
+                guard let metadata = metadata else {
+                    completionHandler(nil, false)
+                    return
+                }
+                
+                completionHandler(metadata, true)
+            }
+        } else {
+            completionHandler(nil, false)
+        }
+    }
+    
+    func removeImageProfileFromStorage(_ imageName: String) {
+        storageRef.child(Path.PhotoProfiles).child(imageName).delete { (error) in
             guard error == nil else {
                 print("Image ref no deleted from storage DB")
                 return
@@ -121,29 +144,4 @@ class FirebaseUserManager: NSObject {
         ref.removeObserver(withHandle: _refHandle)
     }
     
-    /* Send image with user ID base on Ints */
-    func sendSampleImage(profileImage: UIImage?, userId: Int, completionHandler: @escaping (_ metadata: FIRStorageMetadata?, _ success: Bool) -> Void) {
-        if let image = profileImage, let photoData = UIImageJPEGRepresentation(image, 0.8) {
-            let imagePath = "\(userId)"
-            let metadata = FIRStorageMetadata()
-            metadata.contentType = "image/jpeg"
-            
-            storageRef.child(imagePath).put(photoData, metadata: metadata) { (metadata, error) in
-                if let error = error {
-                    print("Error uploading: \(error)")
-                    completionHandler(nil, false)
-                    return
-                }
-                
-                guard let metadata = metadata else {
-                    completionHandler(nil, false)
-                    return
-                }
-
-                completionHandler(metadata, true)
-            }
-        } else {
-            completionHandler(nil, false)
-        }
-    }
 }

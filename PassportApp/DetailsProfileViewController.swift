@@ -67,7 +67,7 @@ class DetailsProfileViewController: UIViewController, UITextFieldDelegate, NVAct
         let size = CGSize(width: 40, height: 40)
         startAnimating(size, message: "Loading")
         if validateFields() {   // Check for all fields completed
-            firebaseApp.sendSampleImage(profileImage: self.profileImageView.image, userId: (self.profile?.id)!, completionHandler: { (metadata, success) in
+            firebaseApp.sendSampleImage(profileImage: self.profileImageView.image, profileName: self.nameTextField.text!, completionHandler: { (metadata, success) in
                 if !success {   // Check for image place in Storage
                     print("Could not store image")
                 } else {
@@ -139,8 +139,8 @@ class DetailsProfileViewController: UIViewController, UITextFieldDelegate, NVAct
         self.ageTextField.text = "\(self.profile!.age!)"
         self.hobbiesTextView.text = self.profile?.hobbies
         
-        let imageUrl = self.profile?.imageUrl
-        firebaseApp.setImageProfile(imageUrl: imageUrl!) { (image) in
+        let name = self.nameTextField.text
+        firebaseApp.downloadImageProfile(userName: name!) { (image) in
             DispatchQueue.main.async {
                 if image != nil {
                     self.profileImageView.image = image as! UIImage
