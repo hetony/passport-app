@@ -18,6 +18,7 @@ app in real time without requiring user interaction.
 2. `cd passport-app`
 3. `pod install`
 3. `open passport-app.xcwokspace`
+4. Optional: You might need to change the bundle Id name
 
 ## License
 MIT License
