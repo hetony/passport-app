@@ -31,7 +31,6 @@ class FirebaseUserManager: NSObject {
     }
     
     // MARK: - Send, Update, Remove Data
-    /* Sends JSON data to 'profiles' node*/
     func sendProfileWith(data: [String: Any], withCompletionHandler: @escaping(_ success: Bool) -> Void) {
         ref.child(Path.Profiles).childByAutoId().setValue(data) { (error, ref) in
             guard error == nil else {
@@ -42,12 +41,15 @@ class FirebaseUserManager: NSObject {
         }
     }
     
-    func removeProfileWith(_ pushId: String, withCompletionHandler: @escaping(_ success: Bool) -> Void) {
-        ref.child(Path.Profiles).child(pushId).removeValue { (error, firebaseRed) in
+    func removeProfileWith(_ deletedUser: Profile, withCompletionHandler: @escaping(_ success: Bool) -> Void) {
+        ref.child(Path.Profiles).child(deletedUser.pushId!).removeValue { (error, firebaseRed) in
             guard error == nil else {
                 withCompletionHandler(false)
                 return
             }
+            
+            // Delete the profile image
+            self.removeImageProfileFromStorage(deletedUser.id!)
             withCompletionHandler(true)
         }
     }
@@ -72,8 +74,17 @@ class FirebaseUserManager: NSObject {
         }
     }
     
-    // MARK: - Observers
+    func removeImageProfileFromStorage(_ userId: Int) {
+        storageRef.child("\(userId)").delete { (error) in
+            guard error == nil else {
+                print("Image ref no deleted from storage DB")
+                return
+            }
+            print("Deletion succesfull")
+        }
+    }
     
+    // MARK: - Observers
     /* NewUser observer */
     func registerUserAddedObserver(withCompletionHandler: @escaping(_ dictionary: [String: Any], _ withKey: String) -> Void) {
         /*
@@ -113,7 +124,7 @@ class FirebaseUserManager: NSObject {
     /* Send image with user ID base on Ints */
     func sendSampleImage(profileImage: UIImage?, userId: Int, completionHandler: @escaping (_ metadata: FIRStorageMetadata?, _ success: Bool) -> Void) {
         if let image = profileImage, let photoData = UIImageJPEGRepresentation(image, 0.8) {
-            let imagePath = "profile_photos/\(userId)"
+            let imagePath = "\(userId)"
             let metadata = FIRStorageMetadata()
             metadata.contentType = "image/jpeg"
             

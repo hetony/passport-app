@@ -10,4 +10,5 @@ import Foundation
 
 struct Path {
     static let Profiles = "profiles"
+    static let PhotoProfiles = "profile_photos/"
 }

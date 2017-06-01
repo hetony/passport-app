@@ -347,7 +347,7 @@ class UserListTableViewController: UIViewController, NVActivityIndicatorViewable
         /*Delete Style*/
         if editingStyle == .delete {
             let deletedUser = passportApp.users?[indexPath.row]
-            firebaseApp.removeProfileWith((deletedUser?.pushId)!, withCompletionHandler: { (success) in
+            firebaseApp.removeProfileWith(deletedUser!, withCompletionHandler: { (success) in
                 DispatchQueue.main.async {
                     if !success {
                         self.displayAlertWithError(message: "Error Deleting User")
@@ -359,7 +359,6 @@ class UserListTableViewController: UIViewController, NVActivityIndicatorViewable
                             }
                         }
                     }
-                    
                 }
             })
         }
