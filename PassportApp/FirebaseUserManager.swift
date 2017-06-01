@@ -58,7 +58,7 @@ class FirebaseUserManager: NSObject {
         /*
          Althought we are adding childs sequentially, one can sort the snapshot been retrieve by a specific key
          */
-        _refHandle = ref.child(Path.Profiles).queryOrdered(byChild: "id").observe(.childAdded, with: { (snapshot) in
+        _refHandle = ref.child(Path.Profiles).observe(.childAdded, with: { (snapshot) in
             let addedUser = snapshot.value as! [String: Any]
             withCompletionHandler(addedUser, snapshot.key)
         })

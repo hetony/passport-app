@@ -11,6 +11,7 @@ import Foundation
 let kSetProfilePicture = "setProfilePicture"
 let kIsAppFirstLaunch = "appFirstLaunch"
 let kDataFiltered = "dataFiltered"
+let kFirstSortNOTDone = "firstSortDone"
 
 struct UserKeys {
     static let IDKey        = "id"

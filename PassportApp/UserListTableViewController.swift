@@ -9,6 +9,22 @@
 import UIKit
 import Firebase
 
+enum Gender: Int {
+    case Male = 0, Female
+}
+
+enum CompassPoint: Int {
+    case North = 100, South, East, West
+}
+
+enum Order: Int {
+    case Ascending = 0, Descending
+}
+
+enum Param: Int {
+    case Name = 0, Age
+}
+
 class UserListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     // MARK: Singleton
@@ -138,7 +154,7 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
     
     @IBAction func filterButton(_ sender: UIButton) {
         // Keep a original copy
-        if true {
+        if !UserDefaults.standard.bool(forKey: kFirstSortNOTDone) {
             self.original = self.passportApp.users
         } else {
             //Once it has been filtered first time keep loading the original for future ref
@@ -165,10 +181,17 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
          2. Remove items from singleton, not keeping the capacity
          3. Fill sIngletong with temp
          */
-
-        switch (self.nameAgeSegmentControl.selectedSegmentIndex, self.ascDescControl.selectedSegmentIndex) {
+        
+        var test: Gender
+        if self.genderSegementControll.selectedSegmentIndex == 0 {
+            test = .Male
+        } else {
+            test = .Female
+        }
+        UserDefaults.standard.set(true, forKey: kFirstSortNOTDone)
+        switch (self.nameAgeSegmentControl.selectedSegmentIndex, self.ascDescControl.selectedSegmentIndex, self.genderSegementControll.selectedSegmentIndex) {
         //FIXME: Use Enums
-        case (0, 0): // Names by Ascending Order
+        case (0, 0, 0): // .Name by Ascending Order .Male
             let sortByName = self.passportApp.users?.sorted(by: { (a, b) -> Bool in
                 a.name! < b.name!
             })
@@ -180,19 +203,19 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
             self.passportApp.users?.removeAll(keepingCapacity: false)
             self.passportApp.users = onlyMalesSortByName
             break
-        case (0, 1): // Names by Descending Order
+        case (0, 0, 0): // .Name by Descending Order .Male
             let sortByName = self.passportApp.users?.sorted(by: { (a, b) -> Bool in
                 a.name! > b.name!
             })
             
-            let onlyFemalesSortByName = sortByName?.filter({
-                $0.sex == false
+            let onlyMalesSortByName = sortByName?.filter({
+                $0.sex == true
             })
             
             self.passportApp.users?.removeAll(keepingCapacity: false)
-            self.passportApp.users = onlyFemalesSortByName
+            self.passportApp.users = onlyMalesSortByName
             break
-        case (1, 0): // Age by Ascending Order
+        case (1, 0, 0): //  .Age by Ascending Order .Male
             let sortByAge = self.passportApp.users?.sorted(by: { (a, b) -> Bool in
                 a.age! < b.age!
             })
@@ -204,7 +227,55 @@ class UserListTableViewController: UIViewController, UITableViewDelegate, UITabl
             self.passportApp.users?.removeAll(keepingCapacity: false)
             self.passportApp.users = onlyMalesSortByAge
             break
-        case (1, 1): // Age by Descending Order
+        case (1, 1, 0): // .Age by Descending Order .Male
+            let sortByAge = self.passportApp.users?.sorted(by: { (a, b) -> Bool in
+                a.age! < b.age!
+            })
+            
+            let onlyMalesSortByAge = sortByAge?.filter({
+                $0.sex == true
+            })
+            
+            self.passportApp.users?.removeAll(keepingCapacity: false)
+            self.passportApp.users = onlyMalesSortByAge
+            break
+        case (0, 1, 1): // .Names by Descending Order .Female
+            let sortByName = self.passportApp.users?.sorted(by: { (a, b) -> Bool in
+                a.name! > b.name!
+            })
+            
+            let onlyFemalesSortByName = sortByName?.filter({
+                $0.sex == false
+            })
+            
+            self.passportApp.users?.removeAll(keepingCapacity: false)
+            self.passportApp.users = onlyFemalesSortByName
+            break
+        case (0, 0, 1): // .Names by Ascending Order .Female
+            let sortByName = self.passportApp.users?.sorted(by: { (a, b) -> Bool in
+                a.name! > b.name!
+            })
+            
+            let onlyFemalesSortByName = sortByName?.filter({
+                $0.sex == false
+            })
+            
+            self.passportApp.users?.removeAll(keepingCapacity: false)
+            self.passportApp.users = onlyFemalesSortByName
+            break
+        case (1, 0, 1): // .Age by Ascending Order .Female
+            let sortByAge = self.passportApp.users?.sorted(by: { (a, b) -> Bool in
+                a.age! < b.age!
+            })
+            
+            let onlyFemalesSortByAge = sortByAge?.filter({
+                $0.sex == false
+            })
+            
+            self.passportApp.users?.removeAll(keepingCapacity: false)
+            self.passportApp.users = onlyFemalesSortByAge
+            break
+        case (1, 1, 1): // .Age by Descending Order .Female
             let sortByAge = self.passportApp.users?.sorted(by: { (a, b) -> Bool in
                 a.age! > b.age!
             })

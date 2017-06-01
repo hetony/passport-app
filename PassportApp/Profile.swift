@@ -37,3 +37,4 @@ struct Profile: Equatable {
 func ==(lhs: Profile, rhs: Profile) -> Bool {
     return lhs.id == rhs.id
 }
+
