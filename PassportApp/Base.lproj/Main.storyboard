@@ -84,6 +84,7 @@
                     <navigationItem key="navigationItem" id="jUo-jb-dDU"/>
                     <connections>
                         <outlet property="ascDescControl" destination="Zjk-zr-X9c" id="5WY-bW-BqF"/>
+                        <outlet property="clearButton" destination="zWv-Yl-7B6" id="e3Z-pA-FY5"/>
                         <outlet property="genderSegementControll" destination="3E7-Nt-LjW" id="yU6-Cr-jK1"/>
                         <outlet property="nameAgeSegmentControl" destination="rev-2u-fOf" id="rVh-nj-DKh"/>
                         <outlet property="searchView" destination="0eV-WO-01s" id="pZv-dW-zQO"/>
