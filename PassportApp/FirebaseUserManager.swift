@@ -6,8 +6,6 @@
 //  Copyright © 2017 Idelfonso Gutierrez Jr. All rights reserved.
 //
 
-//TODO: Use completion blocks for new, update, and remove childs to retrieve any errors and maybe let the user know bad connection
-
 import UIKit
 import Firebase
 

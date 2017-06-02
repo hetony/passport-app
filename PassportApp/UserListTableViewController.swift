@@ -163,11 +163,7 @@ class UserListTableViewController: UIViewController, NVActivityIndicatorViewable
         if !UserDefaults.standard.bool(forKey: kFirstSortNOTDone) {
             self.clearButton.isEnabled = false
         }
-//        else {
-//            //Restore the table with the original values for new filter
-//            self.passportApp.users = self.original
-//            self.usersTableView.reloadData()
-//        }
+
         self.view.addSubview(searchView)
     }
     

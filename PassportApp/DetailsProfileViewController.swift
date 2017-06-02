@@ -87,7 +87,6 @@ class DetailsProfileViewController: UIViewController, UITextFieldDelegate, NVAct
         } else {
             displayAlertWithError(message: "Please fill up all the fields")
         }
-        //TODO: send and array to play with it
     }
     
     //MARK: - Primary View Controller Functions
