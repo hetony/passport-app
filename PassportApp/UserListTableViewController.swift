@@ -137,9 +137,10 @@ class UserListTableViewController: UIViewController, NVActivityIndicatorViewable
         
         if arrCount == 1 {
             return 1
-        } else {
-            return (arrCount + 1)
         }
+        
+        let lastUserAdded = self.passportApp.users?.last?.id
+        return (lastUserAdded! + 1)
     }
     
     

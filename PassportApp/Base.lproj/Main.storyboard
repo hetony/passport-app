@@ -94,11 +94,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UZg-78-yvO" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="0eV-WO-01s">
-                    <rect key="frame" x="0.0" y="0.0" width="371" height="215"/>
+                    <rect key="frame" x="0.0" y="0.0" width="371" height="190"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="BAr-jS-UDT">
-                            <rect key="frame" x="16" y="17" width="339" height="182"/>
+                            <rect key="frame" x="16" y="-8" width="339" height="182"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="aCA-ex-vmC">
                                     <rect key="frame" x="0.0" y="0.0" width="339" height="28"/>
