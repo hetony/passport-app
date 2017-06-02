@@ -44,7 +44,7 @@
 		166FBE1F1EDD8B2A001079A5 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		169F60181ED9D3DF0016F22B /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		169F601B1ED9D7A20016F22B /* PAData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PAData.swift; sourceTree = "<group>"; };
-		16F91CEE1EE0DDBE00A5818C /* GDCheckbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GDCheckbox.swift; path = "../../../Desktop/GDCheckbox-master/Source/GDCheckbox.swift"; sourceTree = "<group>"; };
+		16F91CEE1EE0DDBE00A5818C /* GDCheckbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GDCheckbox.swift; path = "../../../../Desktop/GDCheckbox-master/Source/GDCheckbox.swift"; sourceTree = "<group>"; };
 		4D7C44566AB933B2ECD74397 /* Pods_PassportApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PassportApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E1143DFFDC28BC3BDF852F6 /* Pods-PassportApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassportApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-PassportApp/Pods-PassportApp.release.xcconfig"; sourceTree = "<group>"; };
 		67CDA72A656C8F3F32516D24 /* Pods-PassportApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassportApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PassportApp/Pods-PassportApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -65,28 +65,30 @@
 		164D027C1EDC650B007AEC89 /* Clients */ = {
 			isa = PBXGroup;
 			children = (
-				164D02781EDC4D80007AEC89 /* FirebaseUserManager.swift */,
 				164D027A1EDC64CE007AEC89 /* FIRConstants.swift */,
+				164D02781EDC4D80007AEC89 /* FirebaseUserManager.swift */,
 			);
 			name = Clients;
+			path = Clients;
 			sourceTree = "<group>";
 		};
 		164D027D1EDC6B9E007AEC89 /* UIExtensions */ = {
 			isa = PBXGroup;
 			children = (
-				16F91CEE1EE0DDBE00A5818C /* GDCheckbox.swift */,
 				164D027E1EDC6BCE007AEC89 /* ActionsViewController.swift */,
+				16F91CEE1EE0DDBE00A5818C /* GDCheckbox.swift */,
 			);
 			name = UIExtensions;
+			path = UIExtensions;
 			sourceTree = "<group>";
 		};
 		166BCB771ED9906E00345A5E = {
 			isa = PBXGroup;
 			children = (
-				166BCB821ED9906E00345A5E /* PassportApp */,
-				166BCB811ED9906E00345A5E /* Products */,
-				671E2AD0F8D5FFA7F2A330FD /* Pods */,
 				359FAADD8389956EF46FAF09 /* Frameworks */,
+				166BCB821ED9906E00345A5E /* PassportApp */,
+				671E2AD0F8D5FFA7F2A330FD /* Pods */,
+				166BCB811ED9906E00345A5E /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,17 +103,17 @@
 		166BCB821ED9906E00345A5E /* PassportApp */ = {
 			isa = PBXGroup;
 			children = (
-				164D02711EDA2EC3007AEC89 /* GoogleService-Info.plist */,
-				166BCB831ED9906E00345A5E /* AppDelegate.swift */,
 				164D027C1EDC650B007AEC89 /* Clients */,
 				166BCB9F1ED9A5AE00345A5E /* Controller */,
 				169F601A1ED9D3E60016F22B /* Model */,
 				166BCBA01ED9A5B400345A5E /* Storyboards */,
 				164D027D1EDC6B9E007AEC89 /* UIExtensions */,
 				166BCBA11ED9A5BF00345A5E /* Views */,
+				166BCB831ED9906E00345A5E /* AppDelegate.swift */,
 				166BCB8A1ED9906E00345A5E /* Assets.xcassets */,
-				166BCB8F1ED9906E00345A5E /* Info.plist */,
 				166FBE1F1EDD8B2A001079A5 /* Constants.swift */,
+				164D02711EDA2EC3007AEC89 /* GoogleService-Info.plist */,
+				166BCB8F1ED9906E00345A5E /* Info.plist */,
 			);
 			path = PassportApp;
 			sourceTree = "<group>";
@@ -119,19 +121,21 @@
 		166BCB9F1ED9A5AE00345A5E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				166BCB971ED9A2EE00345A5E /* UserListTableViewController.swift */,
 				166BCB9D1ED9A5A500345A5E /* DetailsProfileViewController.swift */,
+				166BCB971ED9A2EE00345A5E /* UserListTableViewController.swift */,
 			);
 			name = Controller;
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		166BCBA01ED9A5B400345A5E /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				166BCB871ED9906E00345A5E /* Main.storyboard */,
 				166BCB8C1ED9906E00345A5E /* LaunchScreen.storyboard */,
+				166BCB871ED9906E00345A5E /* Main.storyboard */,
 			);
 			name = Storyboards;
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 		166BCBA11ED9A5BF00345A5E /* Views */ = {
@@ -141,15 +145,17 @@
 				166BCB9B1ED9A3B600345A5E /* SearchView.xib */,
 			);
 			name = Views;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		169F601A1ED9D3E60016F22B /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				169F60181ED9D3DF0016F22B /* Profile.swift */,
 				169F601B1ED9D7A20016F22B /* PAData.swift */,
+				169F60181ED9D3DF0016F22B /* Profile.swift */,
 			);
 			name = Model;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		359FAADD8389956EF46FAF09 /* Frameworks */ = {
@@ -318,6 +324,7 @@
 				166BCB881ED9906E00345A5E /* Base */,
 			);
 			name = Main.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 		166BCB8C1ED9906E00345A5E /* LaunchScreen.storyboard */ = {
@@ -326,6 +333,7 @@
 				166BCB8D1ED9906E00345A5E /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
