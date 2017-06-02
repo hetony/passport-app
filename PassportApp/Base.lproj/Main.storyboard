@@ -85,7 +85,8 @@
                     <connections>
                         <outlet property="ascDescControl" destination="Zjk-zr-X9c" id="5WY-bW-BqF"/>
                         <outlet property="clearButton" destination="zWv-Yl-7B6" id="e3Z-pA-FY5"/>
-                        <outlet property="genderSegementControll" destination="3E7-Nt-LjW" id="yU6-Cr-jK1"/>
+                        <outlet property="femaleCheckbox" destination="HKO-Xh-ZSF" id="4RP-Pm-lij"/>
+                        <outlet property="maleCheckbox" destination="jqC-qc-fmF" id="eVP-WF-E86"/>
                         <outlet property="nameAgeSegmentControl" destination="rev-2u-fOf" id="rVh-nj-DKh"/>
                         <outlet property="searchView" destination="0eV-WO-01s" id="pZv-dW-zQO"/>
                         <outlet property="usersTableView" destination="IoJ-QH-V9X" id="F1c-vg-1BU"/>
@@ -93,51 +94,24 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UZg-78-yvO" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="0eV-WO-01s">
-                    <rect key="frame" x="0.0" y="0.0" width="371" height="157"/>
+                    <rect key="frame" x="0.0" y="0.0" width="371" height="190"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="USS-q0-OcW">
-                            <rect key="frame" x="8" y="119" width="355" height="30"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="BAr-jS-UDT">
+                            <rect key="frame" x="16" y="-8" width="339" height="182"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zWv-Yl-7B6">
-                                    <rect key="frame" x="0.0" y="0.0" width="173.5" height="30"/>
-                                    <state key="normal" title="CLEAR"/>
-                                    <connections>
-                                        <action selector="clearFilterButton:" destination="Msm-jA-NAW" eventType="touchUpInside" id="mhM-LO-oUs"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o7F-wJ-7s1">
-                                    <rect key="frame" x="181.5" y="0.0" width="173.5" height="30"/>
-                                    <state key="normal" title="FILTER"/>
-                                    <connections>
-                                        <action selector="filterButton:" destination="Msm-jA-NAW" eventType="touchUpInside" id="5EI-ko-XuE"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                        </stackView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LN4-fJ-u7t">
-                            <rect key="frame" x="341" y="16" width="30" height="47"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="29"/>
-                            <state key="normal" title="ⓧ"/>
-                            <connections>
-                                <action selector="closeFilterWindow:" destination="Msm-jA-NAW" eventType="touchUpInside" id="k7R-tk-mD7"/>
-                            </connections>
-                        </button>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pha-Cu-p49">
-                            <rect key="frame" x="104.5" y="46.5" width="162" height="64"/>
-                            <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="aCA-ex-vmC">
-                                    <rect key="frame" x="0.0" y="0.0" width="162" height="28"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="aCA-ex-vmC">
+                                    <rect key="frame" x="0.0" y="0.0" width="339" height="28"/>
                                     <subviews>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="rev-2u-fOf">
-                                            <rect key="frame" x="0.0" y="0.0" width="101" height="29"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="165.5" height="29"/>
                                             <segments>
                                                 <segment title="Name"/>
                                                 <segment title="Age"/>
                                             </segments>
                                         </segmentedControl>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Zjk-zr-X9c">
-                                            <rect key="frame" x="109" y="0.0" width="53" height="29"/>
+                                            <rect key="frame" x="173.5" y="0.0" width="165.5" height="29"/>
                                             <segments>
                                                 <segment title="↑"/>
                                                 <segment title="↓"/>
@@ -145,25 +119,100 @@
                                         </segmentedControl>
                                     </subviews>
                                 </stackView>
-                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3E7-Nt-LjW" userLabel="Gender Segment Control">
-                                    <rect key="frame" x="0.0" y="36" width="162" height="29"/>
-                                    <segments>
-                                        <segment title="Male"/>
-                                        <segment title="Female"/>
-                                    </segments>
-                                </segmentedControl>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="n8z-nH-qwh">
+                                    <rect key="frame" x="0.0" y="36" width="339" height="108"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="CMz-PM-ieX">
+                                            <rect key="frame" x="0.0" y="0.0" width="339" height="50"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Male" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DaJ-gW-YlI">
+                                                    <rect key="frame" x="0.0" y="0.0" width="165.5" height="50"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jqC-qc-fmF" customClass="GDCheckbox" customModule="PassportApp">
+                                                    <rect key="frame" x="173.5" y="0.0" width="165.5" height="50"/>
+                                                    <color key="backgroundColor" red="0.8194433176" green="1" blue="0.3147870304" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSquare" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="checkColor">
+                                                            <color key="value" red="0.91764705879999997" green="0.039215686270000001" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="checkWidth">
+                                                            <real key="value" value="4"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="containerWidth">
+                                                            <real key="value" value="4"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="DaJ-gW-YlI" firstAttribute="height" secondItem="jqC-qc-fmF" secondAttribute="height" id="8ga-Eu-x0G"/>
+                                                <constraint firstItem="DaJ-gW-YlI" firstAttribute="width" secondItem="jqC-qc-fmF" secondAttribute="width" id="gHw-cP-1GK"/>
+                                            </constraints>
+                                        </stackView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="VfK-p1-kaU">
+                                            <rect key="frame" x="0.0" y="58" width="339" height="50"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Female" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d4s-aa-KER">
+                                                    <rect key="frame" x="0.0" y="0.0" width="165.5" height="50"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HKO-Xh-ZSF" customClass="GDCheckbox" customModule="PassportApp" customModuleProvider="target">
+                                                    <rect key="frame" x="173.5" y="0.0" width="165.5" height="50"/>
+                                                    <color key="backgroundColor" red="0.8194433176" green="1" blue="0.3147870304" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSquare" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="checkWidth">
+                                                            <real key="value" value="4"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="checkColor">
+                                                            <color key="value" red="0.91764705879999997" green="0.039215686270000001" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="containerWidth">
+                                                            <real key="value" value="4"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="d4s-aa-KER" firstAttribute="width" secondItem="HKO-Xh-ZSF" secondAttribute="width" id="3ih-Ln-Kid"/>
+                                                <constraint firstItem="d4s-aa-KER" firstAttribute="height" secondItem="HKO-Xh-ZSF" secondAttribute="height" id="vFI-Uv-ECN"/>
+                                            </constraints>
+                                        </stackView>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="USS-q0-OcW">
+                                    <rect key="frame" x="0.0" y="152" width="339" height="30"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zWv-Yl-7B6">
+                                            <rect key="frame" x="0.0" y="0.0" width="165.5" height="30"/>
+                                            <state key="normal" title="CLEAR"/>
+                                            <connections>
+                                                <action selector="clearFilterButton:" destination="Msm-jA-NAW" eventType="touchUpInside" id="mhM-LO-oUs"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o7F-wJ-7s1">
+                                            <rect key="frame" x="173.5" y="0.0" width="165.5" height="30"/>
+                                            <state key="normal" title="FILTER"/>
+                                            <connections>
+                                                <action selector="filterButton:" destination="Msm-jA-NAW" eventType="touchUpInside" id="5EI-ko-XuE"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
                             </subviews>
                         </stackView>
                     </subviews>
                     <color key="backgroundColor" red="0.8194433176" green="1" blue="0.3147870304" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstItem="pha-Cu-p49" firstAttribute="centerY" secondItem="0eV-WO-01s" secondAttribute="centerY" id="GFS-0T-zmi"/>
-                        <constraint firstAttribute="trailingMargin" secondItem="USS-q0-OcW" secondAttribute="trailing" id="JYq-oi-xhH"/>
-                        <constraint firstItem="pha-Cu-p49" firstAttribute="centerX" secondItem="0eV-WO-01s" secondAttribute="centerX" id="U2B-o8-f4s"/>
-                        <constraint firstAttribute="bottomMargin" secondItem="USS-q0-OcW" secondAttribute="bottom" id="VPc-so-wNZ"/>
-                        <constraint firstItem="USS-q0-OcW" firstAttribute="leading" secondItem="0eV-WO-01s" secondAttribute="leadingMargin" id="Xxd-kS-uur"/>
-                        <constraint firstItem="LN4-fJ-u7t" firstAttribute="top" secondItem="0eV-WO-01s" secondAttribute="topMargin" constant="8" id="o6T-Ut-jjQ"/>
-                        <constraint firstItem="LN4-fJ-u7t" firstAttribute="trailing" secondItem="0eV-WO-01s" secondAttribute="trailingMargin" constant="8" id="wGg-5l-Zgz"/>
+                        <constraint firstItem="BAr-jS-UDT" firstAttribute="leading" secondItem="0eV-WO-01s" secondAttribute="leadingMargin" constant="8" id="ZwS-eb-7Xg"/>
+                        <constraint firstAttribute="bottomMargin" secondItem="BAr-jS-UDT" secondAttribute="bottom" constant="8" id="ggY-HK-F9A"/>
+                        <constraint firstAttribute="trailingMargin" secondItem="BAr-jS-UDT" secondAttribute="trailing" constant="8" id="mRR-d3-LVi"/>
                     </constraints>
                 </view>
             </objects>
