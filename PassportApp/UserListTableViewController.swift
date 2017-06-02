@@ -31,14 +31,16 @@ class UserListTableViewController: UIViewController, NVActivityIndicatorViewable
     // MARK: - Properties
     var original: [Profile]? //Make a copy before sorting
     
-    // MARK: - IBOutlets
+    // MARK: - Main IBOutlets
     @IBOutlet weak var usersTableView: UITableView!
-    @IBOutlet var searchView: UIView!
     
+    // MARK: - FilterView IBOutlets
+    @IBOutlet var searchView: UIView!
     @IBOutlet weak var ascDescControl: UISegmentedControl!
     @IBOutlet weak var nameAgeSegmentControl: UISegmentedControl!
-    @IBOutlet weak var genderSegementControll: UISegmentedControl!
     @IBOutlet weak var clearButton: UIButton!
+    @IBOutlet weak var maleCheckbox: GDCheckbox!
+    @IBOutlet weak var femaleCheckbox: GDCheckbox!
     
     // MARK: - App Life Cycle
     override func viewDidLoad() {
@@ -153,18 +155,18 @@ class UserListTableViewController: UIViewController, NVActivityIndicatorViewable
     // MARK: - Search View
     func showFilterView() {
         searchView.center = self.view.center
-        self.genderSegementControll.selectedSegmentIndex = 0
         self.nameAgeSegmentControl.selectedSegmentIndex = 0
         self.ascDescControl.selectedSegmentIndex = 0
         
         
         if !UserDefaults.standard.bool(forKey: kFirstSortNOTDone) {
             self.clearButton.isEnabled = false
-        } else {
-            //Restore the table with the original values for new filter
-            self.passportApp.users = self.original
-            self.usersTableView.reloadData()
         }
+//        else {
+//            //Restore the table with the original values for new filter
+//            self.passportApp.users = self.original
+//            self.usersTableView.reloadData()
+//        }
         self.view.addSubview(searchView)
     }
     
@@ -174,6 +176,8 @@ class UserListTableViewController: UIViewController, NVActivityIndicatorViewable
             a.id! < b.id!
         })
         
+        self.maleCheckbox.isOn = false
+        self.femaleCheckbox.isOn = false
         self.passportApp.users = self.original
         self.usersTableView.reloadData()
         self.searchView.removeFromSuperview()
@@ -198,28 +202,27 @@ class UserListTableViewController: UIViewController, NVActivityIndicatorViewable
         self.searchView.removeFromSuperview()
     }
     
-    @IBAction func closeFilterWindow(_ sender: UIButton) {
-        self.searchView.removeFromSuperview()
-    }
-    
     
     func filterByGender()  {
-        let gender: Gender = Gender(rawValue: self.genderSegementControll.selectedSegmentIndex)!
         let arrFromGender: [Profile]
+        let male = self.maleCheckbox.isOn
+        let female = self.femaleCheckbox.isOn
         
-        switch gender {
-            case .Male:
-                arrFromGender = (self.passportApp.users?.filter({
-                    $0.sex == true
-                }))!
-            case .Female:
-                arrFromGender = (self.passportApp.users?.filter({
-                    $0.sex == false
-                }))!
-                break
-            default:
-                break
+        if male && female {
+            arrFromGender = self.original!
+        } else if male && !female {
+            arrFromGender = self.original!.filter({
+                $0.sex == true
+            })
+        } else if female && !male {
+            arrFromGender = self.original!.filter({
+                $0.sex == false
+            })
+        } else {
+            arrFromGender = []
         }
+
+
         self.passportApp.users?.removeAll(keepingCapacity: false)
         self.passportApp.users = arrFromGender
     }
