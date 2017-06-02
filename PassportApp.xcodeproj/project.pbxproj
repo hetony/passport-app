@@ -10,7 +10,6 @@
 		164D02721EDA2EC3007AEC89 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 164D02711EDA2EC3007AEC89 /* GoogleService-Info.plist */; };
 		164D02791EDC4D80007AEC89 /* FirebaseUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164D02781EDC4D80007AEC89 /* FirebaseUserManager.swift */; };
 		164D027B1EDC64CE007AEC89 /* FIRConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164D027A1EDC64CE007AEC89 /* FIRConstants.swift */; };
-		164D027F1EDC6BCE007AEC89 /* ActionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164D027E1EDC6BCE007AEC89 /* ActionsViewController.swift */; };
 		166BCB841ED9906E00345A5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166BCB831ED9906E00345A5E /* AppDelegate.swift */; };
 		166BCB891ED9906E00345A5E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 166BCB871ED9906E00345A5E /* Main.storyboard */; };
 		166BCB8B1ED9906E00345A5E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 166BCB8A1ED9906E00345A5E /* Assets.xcassets */; };
@@ -22,7 +21,8 @@
 		166FBE201EDD8B2A001079A5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166FBE1F1EDD8B2A001079A5 /* Constants.swift */; };
 		169F60191ED9D3DF0016F22B /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169F60181ED9D3DF0016F22B /* Profile.swift */; };
 		169F601C1ED9D7A20016F22B /* PAData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169F601B1ED9D7A20016F22B /* PAData.swift */; };
-		16F91CEF1EE0DDBE00A5818C /* GDCheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F91CEE1EE0DDBE00A5818C /* GDCheckbox.swift */; };
+		16F91D021EE20E7000A5818C /* ActionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F91D011EE20E7000A5818C /* ActionsViewController.swift */; };
+		16F91D041EE20E8600A5818C /* GDCheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F91D031EE20E8600A5818C /* GDCheckbox.swift */; };
 		31EC396A87C20CEC77C6628E /* Pods_PassportApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7C44566AB933B2ECD74397 /* Pods_PassportApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,7 +30,6 @@
 		164D02711EDA2EC3007AEC89 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		164D02781EDC4D80007AEC89 /* FirebaseUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseUserManager.swift; sourceTree = "<group>"; };
 		164D027A1EDC64CE007AEC89 /* FIRConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIRConstants.swift; sourceTree = "<group>"; };
-		164D027E1EDC6BCE007AEC89 /* ActionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActionsViewController.swift; path = "../../udacity-on-the-map/udacity-on-the-map/ActionsViewController.swift"; sourceTree = "<group>"; };
 		166BCB801ED9906E00345A5E /* PassportApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PassportApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		166BCB831ED9906E00345A5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		166BCB881ED9906E00345A5E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -44,7 +43,8 @@
 		166FBE1F1EDD8B2A001079A5 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		169F60181ED9D3DF0016F22B /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		169F601B1ED9D7A20016F22B /* PAData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PAData.swift; sourceTree = "<group>"; };
-		16F91CEE1EE0DDBE00A5818C /* GDCheckbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GDCheckbox.swift; path = "../../../../Desktop/GDCheckbox-master/Source/GDCheckbox.swift"; sourceTree = "<group>"; };
+		16F91D011EE20E7000A5818C /* ActionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsViewController.swift; sourceTree = "<group>"; };
+		16F91D031EE20E8600A5818C /* GDCheckbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GDCheckbox.swift; sourceTree = "<group>"; };
 		4D7C44566AB933B2ECD74397 /* Pods_PassportApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PassportApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E1143DFFDC28BC3BDF852F6 /* Pods-PassportApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassportApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-PassportApp/Pods-PassportApp.release.xcconfig"; sourceTree = "<group>"; };
 		67CDA72A656C8F3F32516D24 /* Pods-PassportApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassportApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PassportApp/Pods-PassportApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -68,17 +68,15 @@
 				164D027A1EDC64CE007AEC89 /* FIRConstants.swift */,
 				164D02781EDC4D80007AEC89 /* FirebaseUserManager.swift */,
 			);
-			name = Clients;
 			path = Clients;
 			sourceTree = "<group>";
 		};
 		164D027D1EDC6B9E007AEC89 /* UIExtensions */ = {
 			isa = PBXGroup;
 			children = (
-				164D027E1EDC6BCE007AEC89 /* ActionsViewController.swift */,
-				16F91CEE1EE0DDBE00A5818C /* GDCheckbox.swift */,
+				16F91D031EE20E8600A5818C /* GDCheckbox.swift */,
+				16F91D011EE20E7000A5818C /* ActionsViewController.swift */,
 			);
-			name = UIExtensions;
 			path = UIExtensions;
 			sourceTree = "<group>";
 		};
@@ -124,7 +122,6 @@
 				166BCB9D1ED9A5A500345A5E /* DetailsProfileViewController.swift */,
 				166BCB971ED9A2EE00345A5E /* UserListTableViewController.swift */,
 			);
-			name = Controller;
 			path = Controller;
 			sourceTree = "<group>";
 		};
@@ -134,7 +131,6 @@
 				166BCB8C1ED9906E00345A5E /* LaunchScreen.storyboard */,
 				166BCB871ED9906E00345A5E /* Main.storyboard */,
 			);
-			name = Storyboards;
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
@@ -144,7 +140,6 @@
 				166BCB991ED9A3A100345A5E /* FilterView.xib */,
 				166BCB9B1ED9A3B600345A5E /* SearchView.xib */,
 			);
-			name = Views;
 			path = Views;
 			sourceTree = "<group>";
 		};
@@ -154,7 +149,6 @@
 				169F601B1ED9D7A20016F22B /* PAData.swift */,
 				169F60181ED9D3DF0016F22B /* Profile.swift */,
 			);
-			name = Model;
 			path = Model;
 			sourceTree = "<group>";
 		};
@@ -277,7 +271,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		DE1789DB0F2581FE5401CD17 /* [CP] Copy Pods Resources */ = {
@@ -305,12 +299,12 @@
 				166BCB981ED9A2EE00345A5E /* UserListTableViewController.swift in Sources */,
 				169F60191ED9D3DF0016F22B /* Profile.swift in Sources */,
 				164D02791EDC4D80007AEC89 /* FirebaseUserManager.swift in Sources */,
-				16F91CEF1EE0DDBE00A5818C /* GDCheckbox.swift in Sources */,
+				16F91D041EE20E8600A5818C /* GDCheckbox.swift in Sources */,
 				169F601C1ED9D7A20016F22B /* PAData.swift in Sources */,
 				166FBE201EDD8B2A001079A5 /* Constants.swift in Sources */,
 				166BCB9E1ED9A5A500345A5E /* DetailsProfileViewController.swift in Sources */,
+				16F91D021EE20E7000A5818C /* ActionsViewController.swift in Sources */,
 				166BCB841ED9906E00345A5E /* AppDelegate.swift in Sources */,
-				164D027F1EDC6BCE007AEC89 /* ActionsViewController.swift in Sources */,
 				164D027B1EDC64CE007AEC89 /* FIRConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
