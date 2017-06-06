@@ -20,5 +20,9 @@ app in real time without requiring user interaction.
 3. `open passport-app.xcwokspace`
 4. Optional: You might need to change the bundle Id name
 
+## Know Issues
+
+Currently using my own Firebase account, please use your own Google-info.plist. This project was done for a third-party company as sample
+
 ## License
 MIT License
